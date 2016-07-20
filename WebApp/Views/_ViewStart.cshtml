@@ -1,3 +1,7 @@
 ﻿@{
-    Layout = null;
+    var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
+    if ("Login" == controller || "Product" == controller)
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }

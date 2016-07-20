@@ -26,6 +26,16 @@ namespace WebApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            // start admin css and js
+            bundles.Add(new StyleBundle("~/Content/AdminCss").Include(
+                     "~/Content/Admin/bootstrap/css/bootstrap.min.css",
+                     "~/Content/Admin/css/styles.css"));
+
+            bundles.Add(new ScriptBundle("~/Content/AdminJs").Include(
+                    "~/Content/Admin/js/Jquery.js",
+                    "~/Content/Admin/bootstrap/js/bootstrap.min.js",
+                    "~/Content/Admin/js/custom.js"));
+            // end admin css and js
         }
     }
 }

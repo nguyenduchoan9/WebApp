@@ -1,8 +1,32 @@
-﻿
+﻿@model IEnumerable<WebApp.Models.tblAccount>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index Login</h2>
 <b> after add</b>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>USername</th>
+            <th>PassWord</th>
+            <th>Emai</th>
+            <th>Addres</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.username</td>
+                <td>@item.password</td>
+                <td>@item.email</td>
+                <td>@item.address</td>
+            </tr>
 
+        }
+
+    </tbody>
+</table>

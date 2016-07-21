@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6565f0402e7a4502a34136c2fbc5e671" Name="Diagram1">
+        <EntityTypeShape EntityType="SqlDatabaseSybModel.Account" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SqlDatabaseSybModel.Comment" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SqlDatabaseSybModel.Order" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SqlDatabaseSybModel.OrderDetail" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SqlDatabaseSybModel.Product" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SqlDatabaseSybModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="SqlDatabaseSybModel.FK_tblOrder_tblAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="SqlDatabaseSybModel.FK_tblProduct_tblAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="SqlDatabaseSybModel.FK_tblComment_tblOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="SqlDatabaseSybModel.FK_tblOrderDetail_tblOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="SqlDatabaseSybModel.FK_tblOrderDetail_tblProduct" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

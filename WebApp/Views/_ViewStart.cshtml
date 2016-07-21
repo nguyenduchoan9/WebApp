@@ -1,6 +1,6 @@
 ﻿@{
     var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
-    if ("Login" == controller || "Product" == controller)
+    if ("Login" == controller || "Admin" == controller)
     {
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
     }

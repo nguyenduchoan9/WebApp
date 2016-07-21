@@ -14,8 +14,15 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             AccountDao dao = new AccountDao();
-            IEnumerable<tblAccount> model = dao.GetList();
+            IEnumerable<Account> model = dao.GetList();
             return View(model);
+        }
+
+        public ActionResult Add()
+        {
+            AccountDao dao = new AccountDao();
+            bool result = dao.Add();
+            return RedirectToAction("Index");
         }
     }
 }

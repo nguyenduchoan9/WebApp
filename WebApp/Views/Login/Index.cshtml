@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApp.Models.tblAccount>
+﻿@model IEnumerable<WebApp.Models.Account>
 @{
     ViewBag.Title = "Index";
 }
@@ -7,26 +7,27 @@
 <b> after add</b>
 <table>
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>USername</th>
-            <th>PassWord</th>
-            <th>Emai</th>
-            <th>Addres</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>USername</th>
+        <th>PassWord</th>
+        <th>Emai</th>
+        <th>Addres</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.id</td>
-                <td>@item.username</td>
-                <td>@item.password</td>
-                <td>@item.email</td>
-                <td>@item.address</td>
-            </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.id</td>
+            <td>@item.username</td>
+            <td>@item.password</td>
+            <td>@item.email</td>
+            <td>@item.address</td>
+        </tr>
 
-        }
+    }
 
     </tbody>
 </table>
+<a class="btn btn-primary" href="/Login/Add">ADD</a>

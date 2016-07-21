@@ -13,16 +13,10 @@ namespace WebApp.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            AccountDao dao = new AccountDao();
-            IEnumerable<Account> model = dao.GetList();
-            return View(model);
+            
+            return View();
         }
 
-        public ActionResult Add()
-        {
-            AccountDao dao = new AccountDao();
-            bool result = dao.Add();
-            return RedirectToAction("Index");
-        }
+        
     }
 }

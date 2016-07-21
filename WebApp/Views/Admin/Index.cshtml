@@ -1,0 +1,75 @@
+﻿@model IEnumerable<WebApp.Models.Account>
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Styles{
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/Admin/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="~/Content/Admin/css/style.css" rel='stylesheet' type='text/css' />
+    <!-- Graph CSS -->
+    <link href="~/Content/Admin/css/font-awesome.css" rel="stylesheet">
+    <!-- jQuery -->
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="~/Content/Admin/css/icon-font.min.css" type='text/css' />
+    <!-- //lined-icons -->
+    <!--animate-->
+    <link href="~/Content/Admin/css/animate.css" rel="stylesheet" type="text/css" media="all">
+
+    <!----webfonts--->
+    <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!---//webfonts--->
+    <!-- Meters graphs -->
+    <!-- Placed js at the end of the document so the pages load faster -->
+}
+
+@section Scripts{
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <!-- chart -->
+    <script src="~/Content/Admin/js/Chart.js"></script>
+    <!-- //chart -->
+    <script src="~/Content/Admin/js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
+    <script src="~/Content/Admin/js/jquery-1.10.2.min.js"></script>
+    
+}
+@section JsFooter{
+    <script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
+<script src="~/Content/Admin/js/scripts.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="~/Content/Admin/js/bootstrap.min.js"></script>
+}
+
+<h2>Index Login</h2>
+<b> after add</b>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>USername</th>
+            <th>PassWord</th>
+            <th>Emai</th>
+            <th>Addres</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.username</td>
+                <td>@item.password</td>
+                <td>@item.email</td>
+                <td>@item.address</td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+<a class="btn btn-primary" href="/Admin/Add">ADD</a>

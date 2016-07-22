@@ -28,8 +28,12 @@ namespace WebApp
                       "~/Content/site.css"));
             // start admin css and js
             bundles.Add(new StyleBundle("~/Content/AdminCss").Include(
-                     "~/Content/Admin/bootstrap/css/bootstrap.min.css",
-                     "~/Content/Admin/css/styles.css"));
+                     "~/Content/Admin/css/bootstrap.min.css",
+                     "~/Content/Admin/css/style.css",
+                     "~/Content/Admin/css/font-awesome.css",
+                     "~/Content/Admin/css/icon-font.min.css",
+                     "~/Content/Admin/css/animate.css",
+                     "~/Scripts/media/css/jquery.dataTables.css"));
 
             bundles.Add(new ScriptBundle("~/Content/AdminJs").Include(
                     "~/Content/Admin/js/Jquery.js",

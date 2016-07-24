@@ -26,6 +26,7 @@ namespace WebApp.Models
         public string image { get; set; }
         public decimal price { get; set; }
         public Nullable<int> discount { get; set; }
+        public string description { get; set; }
         public int status { get; set; }
         public System.DateTime createDate { get; set; }
     

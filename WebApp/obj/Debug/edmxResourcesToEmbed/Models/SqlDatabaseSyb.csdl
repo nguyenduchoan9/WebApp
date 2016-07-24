@@ -61,6 +61,7 @@
     <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <Property Name="discount" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="status" Type="Int32" Nullable="false" />
     <Property Name="createDate" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="Account" Relationship="Self.FK_tblProduct_tblAccount" FromRole="Product" ToRole="Account" />

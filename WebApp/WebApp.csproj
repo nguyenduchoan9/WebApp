@@ -212,6 +212,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,6 +224,10 @@
       <DependentUpon>SqlDatabaseSyb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAO\AccountDao.cs" />
+    <Compile Include="Models\DAO\CommentDao.cs" />
+    <Compile Include="Models\DAO\OrderDao.cs" />
+    <Compile Include="Models\DAO\OrderDetailDao.cs" />
+    <Compile Include="Models\DAO\ProductDao.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs">
@@ -317,13 +322,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\SqlDatabaseSyb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SqlDatabaseSyb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\SqlDatabaseSyb.edmx.diagram">
-      <DependentUpon>SqlDatabaseSyb.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\Admin\fonts\digital-7-webfont.eot" />
     <Content Include="Content\Admin\fonts\digital-7-webfont.ttf" />
     <Content Include="Content\Admin\fonts\digital-7-webfont.woff" />
@@ -349,6 +347,13 @@
     <Content Include="Content\Admin\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="Content\Admin\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Content\Admin\fonts\WeatherIcons-Regular.otf" />
+    <EntityDeploy Include="Models\SqlDatabaseSyb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SqlDatabaseSyb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SqlDatabaseSyb.edmx.diagram">
+      <DependentUpon>SqlDatabaseSyb.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -420,6 +425,7 @@
     <Content Include="Views\Shared\_PartialLeftMenu.cshtml" />
     <Content Include="Views\Shared\_PartialHeader.cshtml" />
     <Content Include="Scripts\media\images\Sorting icons.psd" />
+    <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

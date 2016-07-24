@@ -57,6 +57,7 @@
           <ScalarProperty Name="image" ColumnName="image" />
           <ScalarProperty Name="price" ColumnName="price" />
           <ScalarProperty Name="discount" ColumnName="discount" />
+          <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="createDate" ColumnName="createDate" />
         </MappingFragment>

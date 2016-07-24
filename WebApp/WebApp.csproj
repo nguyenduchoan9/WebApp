@@ -209,6 +209,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\Key.cs" />
+    <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\EmailTemplate\NewOrder.html" />
     <Content Include="Content\Admin\css\animate.css" />
     <Content Include="Content\Admin\css\bootstrap.min.css" />
     <Content Include="Content\Admin\css\font-awesome.css" />

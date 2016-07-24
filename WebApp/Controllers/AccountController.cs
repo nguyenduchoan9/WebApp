@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApp.Common;
 using WebApp.Models;
 using WebApp.Models.DAO;
 
@@ -56,6 +58,21 @@ namespace WebApp.Controllers
             {
                 status = resultJson
             });
+        }
+
+        public void SendMail()
+        {
+            var fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"].ToString();
+            var toEmailAddress = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Common/EmailTemplate/NewOrder.html"));
+
+            content = content.Replace("{{CustomerName}}", "CustomerName");
+            content = content.Replace("{{FromEmailAddress}}", fromEmailAddress);
+            content = content.Replace("{{ToEmailAddress}}", toEmailAddress);
+
+            new MailHelper().SendMail(toEmailAddress, "This is demo mail", content);
+
         }
     }
 }

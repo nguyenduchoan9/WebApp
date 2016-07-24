@@ -1,8 +1,12 @@
 ﻿@{
     var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
-    if ("Login" == controller || "Admin" == controller || "Product" == controller || "Account" == controller)
+    if ("Admin" == controller || "Product" == controller || "Account" == controller)
     {
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else if("Login" == controller)
+    {
+        Layout = "~/Views/Shared/_LoginLayout.cshtml";
     }
     else
     {

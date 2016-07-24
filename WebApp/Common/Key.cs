@@ -7,5 +7,6 @@ namespace WebApp.Common
 {
     public class Key
     {
+        public static string SessionUser = "SESSION_USER";
     }
 }

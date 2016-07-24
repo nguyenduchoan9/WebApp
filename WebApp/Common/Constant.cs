@@ -33,5 +33,11 @@ namespace WebApp.Common
 
         /* BAN STRING*/
         public static string Ban = "BAN";
+
+        /* MASSAGE ACCOUNT BAN*/
+        public static string ErrMassageAccoutBan = "Your Account is banned !!!!!!";
+
+        /* MASSAGE INVALID USERNAME OR PASSWORD*/
+        public static string InvalidUsernameOrPassword = "Invalid username or password!";
     }
 }

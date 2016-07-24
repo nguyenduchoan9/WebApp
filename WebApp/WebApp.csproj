@@ -207,6 +207,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="CommonClass\SessionStorage.cs" />
+    <Compile Include="CommonClass\SessionUser.cs" />
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\Key.cs" />
     <Compile Include="Common\MailHelper.cs" />
@@ -428,6 +430,8 @@
     <Content Include="Views\Shared\_PartialHeader.cshtml" />
     <Content Include="Scripts\media\images\Sorting icons.psd" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Login\BanAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

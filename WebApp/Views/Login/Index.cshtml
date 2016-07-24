@@ -3,31 +3,119 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index Login</h2>
-<b> after add</b>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>USername</th>
-        <th>PassWord</th>
-        <th>Emai</th>
-        <th>Addres</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.id</td>
-            <td>@item.username</td>
-            <td>@item.password</td>
-            <td>@item.email</td>
-            <td>@item.address</td>
-        </tr>
+@section Styles{
+    @Styles.Render("~/Content/AdminCss")
 
-    }
+    <!----webfonts--->
+    <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!---//webfonts--->
+    <!-- Meters graphs -->
+    <!-- Placed js at the end of the document so the pages load faster -->
 
-    </tbody>
-</table>
-<a class="btn btn-primary" href="/Login/Add">ADD</a>
+}
+
+@section Scripts{
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <!-- chart -->
+    <script src="~/Content/Admin/js/Chart.js"></script>
+    <!-- //chart -->
+    <script src="~/Content/Admin/js/wow.min.js"></script>
+
+    <!--//end-animate-->
+    <script src="~/Content/Admin/js/jquery-1.10.2.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script type="text/javascript" charset="utf8" src="~/Scripts/media/js/jquery.dataTables.js"></script>
+
+}
+
+@section JsFooter{
+    <script type="text/javascript">
+        $(document)
+            .ready(function () {
+                $('#submit-form')
+                    .on('submit',
+                        function (e) {
+                            e.preventDefault();
+                            
+                            var errMsg = $('#error-massage');
+                            var username = $('#username').val();
+                            var password = $('#password').val();
+                            $.ajax({
+                                url: "/Login/CheckLoginAccount",
+                                data: {
+                                    username: username,
+                                    password: password
+                                },
+                                dataType: "json",
+                                type: "POST",
+                                success: function (response) {
+                                    var role = response.role;
+                                    var msg = response.massage;
+                                    if (-1 == role) {
+                                        errMsg.text(msg);
+                                        errMsg.removeClass("hidden");
+                                    } else if (1 == role) {
+                                        window.location.href = "/Admin/Index";
+                                    } else if (2 == role) {
+                                        window.location.href = "/Admin/Index";
+                                    } else if (3 == role) {
+                                        window.location.href = "/Account/BanAccount";
+                                    }
+                                }
+                            });
+                        });
+            });
+    </script>
+    <script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
+    <script src="~/Content/Admin/js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/Admin/js/bootstrap.min.js"></script>
+}
+
+<div id="page-wrapper" class="sign-in-wrapper">
+    <div class="graphs">
+        <div class="sign-in-form">
+            <div class="sign-in-form-top">
+                <p><span>Sign In</span>
+            </div>
+            <div class="signin">
+                <div id="error-massage" class="massage-err-login hidden">message</div>
+                <form id="submit-form" action="/Login/CheckLoginAccount">
+                    <div class="log-input">
+                        <div class="log-input">
+                            <input type="text" name="username" id="username" class="user" placeholder="Username" />
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="log-input">
+                        <div class="log-input">
+                            <input type="password" name="password" id="password" class="lock password" placeholder="Password" />
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <input type="submit" value="Login to your account">
+                </form>
+                <div class="bottom-form">
+                    <p>
+                        <a href="#">Forgot Password?</a>
+                    </p>
+                    <p>
+                        <a href="#">Click Here</a>
+                    </p>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <div class="new_people">
+                <h4>For New People</h4>
+                <p>
+                    Having hands on experience in creating innovative designs,I do offer design
+                    solutions which harness.
+                </p>
+                <a href="sign-up.html">Register Now!</a>
+            </div>
+        </div>
+    </div>
+</div>

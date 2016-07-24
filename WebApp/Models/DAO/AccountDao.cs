@@ -102,9 +102,10 @@ namespace WebApp.Models.DAO
             return 0;
         }
 
-        
-
-       
+        public Account CheckAccountLogin(string username, string password)
+        {
+            return db.Accounts.SingleOrDefault(x => x.username.Equals(username) && x.password.Equals(password));
+        }
 
         public int BanAccount(int id)
         {

@@ -173,3 +173,4 @@ C:\Users\NGUYEN DUC HOANG\Desktop\SYB\trunk\WebApp\bin\Microsoft.Owin.Security.T
 C:\Users\NGUYEN DUC HOANG\Desktop\SYB\trunk\WebApp\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\NGUYEN DUC HOANG\Desktop\SYB\trunk\WebApp\obj\Debug\WebApp.dll
 C:\Users\NGUYEN DUC HOANG\Desktop\SYB\trunk\WebApp\obj\Debug\WebApp.pdb
+C:\Users\NGUYEN DUC HOANG\Desktop\SYB\trunk\WebApp\obj\Debug\WebApp.csprojResolveAssemblyReference.cache

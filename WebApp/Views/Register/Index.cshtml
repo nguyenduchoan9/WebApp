@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Styles{
+    @Styles.Render("~/Content/AdminCss")
+
+    <!----webfonts--->
+    <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!---//webfonts--->
+    <!-- Meters graphs -->
+    <!-- Placed js at the end of the document so the pages load faster -->
+
+}
+
+@section Scripts{
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <!-- chart -->
+    <script src="~/Content/Admin/js/Chart.js"></script>
+    <!-- //chart -->
+    <script src="~/Content/Admin/js/wow.min.js"></script>
+
+    <!--//end-animate-->
+    <script src="~/Content/Admin/js/jquery-1.10.2.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script type="text/javascript" charset="utf8" src="~/Scripts/media/js/jquery.dataTables.js"></script>
+
+}
+
+@section JsFooter{
+    
+    <script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
+    <script src="~/Content/Admin/js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/Admin/js/bootstrap.min.js"></script>
+}
+
+<div id="page-wrapper" class="sign-in-wrapper">
+    <div class="graphs">
+        <div class="sign-up">
+            <h3>Register Here</h3>
+            <p class="creating">
+                Having hands on experience in creating innovative designs,I do offer design
+                solutions which harness.
+            </p>
+            <h5>Personal Information</h5>
+            <div class="sign-u">
+                <div class="sign-up1">
+                    <h4>First Name* :</h4>
+                </div>
+                <div class="sign-up2">
+                    <form>
+                        <input type="text" placeholder=" " required=" " />
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="sign-u">
+                <div class="sign-up1">
+                    <h4>Last Name* :</h4>
+                </div>
+                <div class="sign-up2">
+                    <form>
+                        <input type="text" placeholder=" " required=" " />
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="sign-u">
+                <div class="sign-up1">
+                    <h4>Email Address* :</h4>
+                </div>
+                <div class="sign-up2">
+                    <form>
+                        <input type="text" placeholder=" " required=" " />
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <h6>Login Information</h6>
+            <div class="sign-u">
+                <div class="sign-up1">
+                    <h4>Password* :</h4>
+                </div>
+                <div class="sign-up2">
+                    <form>
+                        <input type="password" placeholder=" " required=" " />
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="sign-u">
+                <div class="sign-up1">
+                    <h4>Confirm Password* :</h4>
+                </div>
+                <div class="sign-up2">
+                    <form>
+                        <input type="password" placeholder=" " required=" " />
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="sub_home">
+                <div class="sub_home_left">
+                    <form>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+                <div class="sub_home_right">
+                    <p>Go Back to <a href="index.html">Home</a></p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div>
+

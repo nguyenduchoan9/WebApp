@@ -1,0 +1,33 @@
+﻿
+
+.header-top-homepage {
+    margin: 1em 0 1em 0;
+}
+
+.logo-login {
+    float: right;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2%; 
+}
+
+.logo-image img {
+    max-width: 150%;
+    margin: auto;
+    max-height: 2em;
+}
+
+.header_right_logo{
+	text-decoration: none;
+	font-family: fontawesome;
+	font-size: 37px;
+	letter-spacing: 3px;
+	color: #555555;
+	bottom: 5px;
+	padding-left: 2px;
+	font-weight: bold;
+}
+
+.div-homepage {
+    margin: 0 0 1em 0;
+}

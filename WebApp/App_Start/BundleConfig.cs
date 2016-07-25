@@ -33,13 +33,35 @@ namespace WebApp
                      "~/Content/Admin/css/font-awesome.css",
                      "~/Content/Admin/css/icon-font.min.css",
                      "~/Content/Admin/css/animate.css",
-                     "~/Scripts/media/css/jquery.dataTables.css"));
+                     "~/Scripts/media/css/jquery.dataTables.css",
+                     "~/Content/Admin/css/Customize.css"));
 
             bundles.Add(new ScriptBundle("~/Content/AdminJs").Include(
                     "~/Content/Admin/js/Jquery.js",
                     "~/Content/Admin/bootstrap/js/bootstrap.min.js",
                     "~/Content/Admin/js/custom.js"));
             // end admin css and js
+
+            // start Homepage css and js
+            bundles.Add(new StyleBundle("~/Content/HomepageCss").Include(
+                     "~/Content/Customer/css/bootstrap.css",
+                     "~/Content/Customer/css/style.css"));
+
+            bundles.Add(new ScriptBundle("~/Content/HomepageJs").Include(
+                    "~/Content/Customer/js/jquery.min.js",
+                    "~/Content/Customer/js/bootstrap-3.1.1.min.js",
+                    "~/Content/Customer/js/simpleCart.min.js"));
+            // end Homepage css and js
+            /*<!-- //Custom Theme files -->
+                <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+                <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+                <!-- js -->
+                <script src="js/jquery.min.js"></script>
+                <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+                <!-- //js -->
+                <!-- cart -->
+                <script src="js/simpleCart.min.js"> </script>*/
         }
     }
 }
+

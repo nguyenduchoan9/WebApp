@@ -41,7 +41,7 @@ namespace WebApp.Controllers
 
                 if (Constant.AdminRole == user.role || Constant.SuperAdminRole == user.role)
                 {
-                    SessionUser session = new SessionUser(user.id, user.username);
+                    SessionUser session = new SessionUser(user.id, user.username, user.role);
                     SessionStorage.SetSessionUser(session);
                     return Json(new
                     {
@@ -51,7 +51,7 @@ namespace WebApp.Controllers
                 }
                 else if (Constant.CustomerRole == user.role)
                 {
-                    SessionUser session = new SessionUser(user.id, user.username);
+                    SessionUser session = new SessionUser(user.id, user.username, user.role);
                     SessionStorage.SetSessionUser(session);
                     return Json(new
                     {

@@ -214,8 +214,10 @@
     <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -267,6 +269,7 @@
     <Content Include="Common\EmailTemplate\NewOrder.html" />
     <Content Include="Content\Admin\css\animate.css" />
     <Content Include="Content\Admin\css\bootstrap.min.css" />
+    <Content Include="Content\Admin\css\Customize.css" />
     <Content Include="Content\Admin\css\font-awesome.css" />
     <Content Include="Content\Admin\css\graph.css" />
     <Content Include="Content\Admin\css\icon-font.min.css" />
@@ -305,6 +308,50 @@
     <Content Include="Content\Admin\js\wow.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Customer\css\bootstrap.css" />
+    <Content Include="Content\Customer\css\flexslider.css" />
+    <Content Include="Content\Customer\css\form.css" />
+    <Content Include="Content\Customer\css\jquery-ui.css" />
+    <Content Include="Content\Customer\css\style.css" />
+    <Content Include="Content\Customer\images\2.png" />
+    <Content Include="Content\Customer\images\close_1.png" />
+    <Content Include="Content\Customer\images\g1.jpg" />
+    <Content Include="Content\Customer\images\g10.png" />
+    <Content Include="Content\Customer\images\g2.jpg" />
+    <Content Include="Content\Customer\images\g3.png" />
+    <Content Include="Content\Customer\images\g4.png" />
+    <Content Include="Content\Customer\images\g5.png" />
+    <Content Include="Content\Customer\images\g6.png" />
+    <Content Include="Content\Customer\images\g7.png" />
+    <Content Include="Content\Customer\images\g8.png" />
+    <Content Include="Content\Customer\images\g9.png" />
+    <Content Include="Content\Customer\images\i1.png" />
+    <Content Include="Content\Customer\images\i2.png" />
+    <Content Include="Content\Customer\images\i3.png" />
+    <Content Include="Content\Customer\images\i4.png" />
+    <Content Include="Content\Customer\images\m1.png" />
+    <Content Include="Content\Customer\images\m2.png" />
+    <Content Include="Content\Customer\images\m3.png" />
+    <Content Include="Content\Customer\images\m4.png" />
+    <Content Include="Content\Customer\images\m5.png" />
+    <Content Include="Content\Customer\images\m6.png" />
+    <Content Include="Content\Customer\images\m7.png" />
+    <Content Include="Content\Customer\images\m8.png" />
+    <Content Include="Content\Customer\images\m9.png" />
+    <Content Include="Content\Customer\images\s1.png" />
+    <Content Include="Content\Customer\images\s2.png" />
+    <Content Include="Content\Customer\images\s3.png" />
+    <Content Include="Content\Customer\images\slid.jpg" />
+    <Content Include="Content\Customer\images\star.png" />
+    <Content Include="Content\Customer\images\tick1.png" />
+    <Content Include="Content\Customer\js\bootstrap-3.1.1.min.js" />
+    <Content Include="Content\Customer\js\imagezoom.js" />
+    <Content Include="Content\Customer\js\jquery-ui.min.js" />
+    <Content Include="Content\Customer\js\jquery.flexslider.js" />
+    <Content Include="Content\Customer\js\jquery.jscrollpane.min.js" />
+    <Content Include="Content\Customer\js\jquery.min.js" />
+    <Content Include="Content\Customer\js\jquery.mousewheel.js" />
+    <Content Include="Content\Customer\js\simpleCart.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -358,6 +405,10 @@
     <Content Include="Models\SqlDatabaseSyb.edmx.diagram">
       <DependentUpon>SqlDatabaseSyb.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\Customer\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Customer\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\Customer\fonts\Marvel-Regular.ttf" />
+    <Content Include="Content\Customer\fonts\Roboto-Regular.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -432,6 +483,10 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Login\BanAccount.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Shared\_HomePageLayout.cshtml" />
+    <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\Shared\_HeaderHomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -39,48 +39,71 @@
                     .DataTable({
                         responsive: true
                     });
-                $('.btn-ban').off('click').on('click',
+                $('#tblAccount').off('click').on('click', '.btn-ban',
                     function (e) {
                         e.preventDefault();
                         var btn = $(this);
+                        var text = btn.text();
+                        var url;
+                        if (text == ("@Constant.Ban")) {
+                            url = "/Account/BanAccount";
+                        } else {
+                            url = "/Account/UnbanAccount";
+                        }
+
                         var idUser = btn.data('id');
                         $.ajax({
-                            url: "/Account/BanAccount",
+                            url: url,
                             data: { id: idUser },
                             dataType: "json",
                             type: "POST",
                             success: function (response) {
                                 var result = response.status;
                                 if (result) {
-                                    $('#role-' + idUser).text("@Constant.Ban");
-                                    btn.remove('btn-ban');
-                                    btn.addClass('btn-unban');
-                                    btn.text('UNBAN');
+                                    if (text == ("@Constant.Ban")) {
+                                        $('#role-' + idUser).text("@Constant.Ban");
+                                        btn.text('UNBAN');
+                                    } else {
+                                        $('#role-' + idUser).text("@Constant.Customer");
+                                        btn.text('BAN');
+                                    }
+
                                 }
                             }
                         });
                     });
-                $('.btn-unban').off('click').on('click',
-                    function (e) {
-                        e.preventDefault();
-                        var btn = $(this);
-                        var idUser = btn.data('id');
-                        $.ajax({
-                            url: "/Account/UnbanAccount",
-                            data: { id: idUser },
-                            dataType: "json",
-                            type: "POST",
-                            success: function (response) {
-                                var result = response.status;
-                                if (result) {
+                @*$("#paginatedTable").on("click", ".test .toggleTest", function (e) {
+                    e.preventDefault();
+                    var btn = $(this);
+                    var text = btn.text();
+                    var url;
+                    if (text == ("@Constant.Ban")) {
+                        url = "/Account/BanAccount";
+                    } else {
+                        url = "/Account/UnbanAccount";
+                    }
+
+                    var idUser = btn.data('id');
+                    $.ajax({
+                        url: url,
+                        data: { id: idUser },
+                        dataType: "json",
+                        type: "POST",
+                        success: function (response) {
+                            var result = response.status;
+                            if (result) {
+                                if (text == ("@Constant.Ban")) {
+                                    $('#role-' + idUser).text("@Constant.Ban");
+                                    btn.text('UNBAN');
+                                } else {
                                     $('#role-' + idUser).text("@Constant.Customer");
-                                    btn.remove('btn-unban');
-                                    btn.addClass('btn-ban');
                                     btn.text('BAN');
                                 }
+
                             }
-                        });
+                        }
                     });
+                });*@
                 $('.btn-resetpassword').off('click').on('click',
                     function (e) {
                         e.preventDefault();
@@ -120,9 +143,9 @@
                             <tr>
                                 <th class="info">ID</th>
                                 <th class="info">Username</th>
-                                <th class="info">Password</th>
                                 <th class="info">Email</th>
                                 <th class="info">Address</th>
+                                <th class="info">Role</th>
                                 <th class="info"></th>
                                 <th class="info"></th>
                                 <th class="info"></th>
@@ -171,27 +194,29 @@
                                         }
                                     }
 
-                                    <td>
-                                        <a href="#" class="btn btn-primary btn-block btn-admin" data-id="@item.id">ADMIN</a>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-warning btn-block btn-resetpassword" data-id="@item.id">RESET PASSWORD</a>
-                                    </td>
                                     @{
-                                        if (3 == role)
+                                        if (1 == role)
                                         {
                                             <td>
-                                                <a href="#" class="btn btn-danger btn-block btn-unban" data-id="@item.id">UNBAN</a>
+                                                <a href="#" class="btn btn-primary btn-block btn-unadmin" data-id="@item.id">UNADMIN</a>
                                             </td>
                                         }
                                         else
                                         {
                                             <td>
-                                                <a href="#" class="btn btn-danger btn-block btn-ban" data-id="@item.id">BAN</a>
+                                                <a href="#" class="btn btn-primary btn-block btn-admin" data-id="@item.id">ADMIN</a>
                                             </td>
                                         }
-
                                     }
+
+                                    <td>
+                                        <a href="#" class="btn btn-warning btn-block btn-resetpassword" data-id="@item.id">RESET PASSWORD</a>
+                                    </td>
+
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-block btn-ban" data-id="@item.id">@(role == Constant.BanRole ? "UNBAN" : "BAN")</a>
+                                    </td>
+
 
                                 </tr>
 

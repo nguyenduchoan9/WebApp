@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using WebApp.Common;
+using WepApp.CommonClass;
 
 namespace WebApp.Models.DAO
 {
@@ -18,7 +19,19 @@ namespace WebApp.Models.DAO
 
         public IEnumerable<Account> GetList()
         {
-            return db.Accounts.ToList();
+            var session = SessionStorage.GetSessionUser();
+            var role = session.Role;
+            
+            if (Constant.SuperAdminRole == role)
+            {
+                return db.Accounts.Where(x => x.role != Constant.SuperAdminRole).ToList();
+            }
+            else if(Constant.AdminRole == role)
+            {
+                var id = session.Id;
+                return db.Accounts.Where(x => x.role != Constant.SuperAdminRole && x.role != Constant.AdminRole).ToList();
+            }
+            return null;
         }
 
         public bool Add()

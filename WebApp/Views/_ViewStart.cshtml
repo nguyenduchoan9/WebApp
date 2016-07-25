@@ -1,12 +1,16 @@
 ﻿@{
     var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
-    if ("Admin" == controller || "Product" == controller || "Account" == controller)
+    if ("Admin".Equals(controller) || "Product".Equals(controller) || "Account".Equals(controller))
     {
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
     }
-    else if("Login" == controller)
+    else if("Login".Equals(controller) || "Register".Equals(controller))
     {
         Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    }
+    else if ("HomePage".Equals(controller))
+    {
+        Layout = "~/Views/Shared/_HomePageLayout.cshtml";
     }
     else
     {

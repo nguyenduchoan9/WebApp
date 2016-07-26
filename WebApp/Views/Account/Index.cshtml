@@ -72,38 +72,7 @@
                             }
                         });
                     });
-                @*$("#paginatedTable").on("click", ".test .toggleTest", function (e) {
-                    e.preventDefault();
-                    var btn = $(this);
-                    var text = btn.text();
-                    var url;
-                    if (text == ("@Constant.Ban")) {
-                        url = "/Account/BanAccount";
-                    } else {
-                        url = "/Account/UnbanAccount";
-                    }
-
-                    var idUser = btn.data('id');
-                    $.ajax({
-                        url: url,
-                        data: { id: idUser },
-                        dataType: "json",
-                        type: "POST",
-                        success: function (response) {
-                            var result = response.status;
-                            if (result) {
-                                if (text == ("@Constant.Ban")) {
-                                    $('#role-' + idUser).text("@Constant.Ban");
-                                    btn.text('UNBAN');
-                                } else {
-                                    $('#role-' + idUser).text("@Constant.Customer");
-                                    btn.text('BAN');
-                                }
-
-                            }
-                        }
-                    });
-                });*@
+               
                 $('.btn-resetpassword').off('click').on('click',
                     function (e) {
                         e.preventDefault();
@@ -194,20 +163,9 @@
                                         }
                                     }
 
-                                    @{
-                                        if (1 == role)
-                                        {
-                                            <td>
-                                                <a href="#" class="btn btn-primary btn-block btn-unadmin" data-id="@item.id">UNADMIN</a>
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                <a href="#" class="btn btn-primary btn-block btn-admin" data-id="@item.id">ADMIN</a>
-                                            </td>
-                                        }
-                                    }
+                                    <td>
+                                        <a href="#" class="btn btn-primary btn-block btn-admin" data-id="@item.id">@(role == Constant.AdminRole ? "UNADMIN" : "ADMIN")</a>
+                                    </td>
 
                                     <td>
                                         <a href="#" class="btn btn-warning btn-block btn-resetpassword" data-id="@item.id">RESET PASSWORD</a>

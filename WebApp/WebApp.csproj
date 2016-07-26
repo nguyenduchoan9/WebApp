@@ -409,6 +409,10 @@
     <Content Include="Content\Customer\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\Customer\fonts\Marvel-Regular.ttf" />
     <Content Include="Content\Customer\fonts\Roboto-Regular.ttf" />
+    <None Include="Properties\PublishProfiles\demois.pubxml" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
+    <None Include="Properties\PublishProfiles\local1.pubxml" />
+    <None Include="Properties\PublishProfiles\swd.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

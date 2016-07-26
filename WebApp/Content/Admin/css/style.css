@@ -93,7 +93,7 @@ h1, h2, h3, h4, h5 {
     }
 /** Login **/
 .login-body {
-    background: url("../images/login-bg-green.png") no-repeat center fixed;
+    background: url("/Content/Admin/images/login-bg-green.png") no-repeat center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -466,7 +466,7 @@ h1, h2, h3, h4, h5 {
 
     .checkbox input + i:after {
         content: '';
-        background: url("../images/mark2.png") no-repeat center;
+        background: url("/Content/Admin/images/mark2.png") no-repeat center;
         top: 0px;
         left: 0px;
         width: 17px;
@@ -807,15 +807,15 @@ ul.dropdown-menu.drp-mnu li {
 }
 
 .custom-nav > li.menu-list.active > a {
-    background-image: url(../images/plus.png);
+    background-image: url(/Content/Admin/images/plus.png);
 }
 
 .custom-nav > li.nav-active.active > a {
-    background-image: url(../images/minus.png);
+    background-image: url(/Content/Admin/images/minus.png);
 }
 
     .custom-nav > li.nav-active.active > a:hover {
-        background-image: url(../images/minus.png);
+        background-image: url(/Content/Admin/images/minus.png);
     }
 
 .custom-nav li .fa {
@@ -1292,7 +1292,7 @@ ul.dropdown-menu li {
     #loginButton span {
         width: 24px;
         height: 24px;
-        background: url(../images/sprite.png) no-repeat -35px -10px;
+        background: url(/Content/Admin/images/sprite.png) no-repeat -35px -10px;
         display: block;
         -webkit-transition: all 0.2s ease-out;
         -moz-transition: all 0.2s ease-out;
@@ -1351,7 +1351,7 @@ ul.dropdown-menu li {
     .search_box input[type="submit"] {
         border: none;
         cursor: pointer;
-        background: #424f63 url(../images/search.png) no-repeat center;
+        background: #424f63 url(/Content/Admin/images/search.png) no-repeat center;
         position: absolute;
         right: 0;
         width: 35px;
@@ -1517,7 +1517,7 @@ i.fa.fa-tasks {
 }
 
 .sb-search-submit {
-    background: #fff url('../images/search.png') no-repeat 5px 7px;
+    background: #fff url('/Content/Admin/images/search.png') no-repeat 5px 7px;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* IE 8 */
     filter: alpha(opacity=0); /* IE 5-7 */
     color: transparent;
@@ -1528,7 +1528,7 @@ i.fa.fa-tasks {
 }
 
 .sb-icon-search {
-    background: #fff url('../images/search.png') no-repeat 5px 7px;
+    background: #fff url('/Content/Admin/images/search.png') no-repeat 5px 7px;
     z-index: 90;
 }
 /* Open state */
@@ -1538,7 +1538,7 @@ i.fa.fa-tasks {
 }
 
     .sb-search.sb-search-open .sb-icon-search, .no-js .sb-search .sb-icon-search {
-        background: #c0c0c0 url('../images/img-sprite.png') no-repeat 0px 1px;
+        background: #c0c0c0 url('/Content/Admin/images/img-sprite.png') no-repeat 0px 1px;
         color: #fff;
         z-index: 11;
     }
@@ -2029,7 +2029,7 @@ ul.dropdown-menu {
     width: 20px;
     height: 20px;
     display: block;
-    background: url(../images/up-down.png) no-repeat -8px -24px;
+    background: url(/Content/Admin/images/up-down.png) no-repeat -8px -24px;
     margin-top: 13px;
     float: right;
 }
@@ -2823,7 +2823,7 @@ i.icon_13 {
 
             .single-bottom ul li input[type="checkbox"]:checked + label span:first-child:before {
                 content: "";
-                background: url(../images/2.png)no-repeat;
+                background: url(/Content/Admin/images/2.png)no-repeat;
                 position: absolute;
                 left: 1px;
                 top: 2px;
@@ -4379,7 +4379,7 @@ h3.count.text-light {
 .coffee-top i {
     position: absolute;
     top: 84%;
-    background: url(../images/1.png)no-repeat center;
+    background: url(/Content/Admin/images/1.png)no-repeat center;
     width: 80px;
     height: 80px;
     display: block;
@@ -4668,7 +4668,7 @@ h2.form-heading {
 }
 
 body#login {
-    background: url(../images/bg.jpg)no-repeat;
+    background: url(/Content/Admin/images/bg.jpg)no-repeat;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -4947,12 +4947,12 @@ button.rew:hover {
 }
 
     .login-form-info input[type="text"].men {
-        background: url(../images/n.png) no-repeat 10px 11px;
+        background: url(/Content/Admin/images/n.png) no-repeat 10px 11px;
         display: block;
     }
 
     .login-form-info input[type="password"].lock {
-        background: url(../images/i.png) no-repeat 10px 11px;
+        background: url(/Content/Admin/images/i.png) no-repeat 10px 11px;
         display: block;
     }
 
@@ -5189,7 +5189,7 @@ h1.blank, h3.blank1 {
 }
 
 .main-grid1-grids {
-    background: url(../images/2.jpg) no-repeat 0px 0px;
+    background: url(/Content/Admin/images/2.jpg) no-repeat 0px 0px;
     min-height: 300px;
     background-size: cover;
     -webkit-background-size: cover;
@@ -5487,7 +5487,7 @@ span.badge1 {
         }
 
 .sign-in-form-top {
-    background: url(../images/3.jpg) no-repeat 0px -55px;
+    background: url(/Content/Admin/images/3.jpg) no-repeat 0px -55px;
     display: block;
     min-height: 150px;
     padding: 3em 0 0;
@@ -5522,7 +5522,7 @@ span.badge1 {
 
     .signin:after {
         content: '';
-        background: url(../images/6.png) no-repeat 0px 0px;
+        background: url(/Content/Admin/images/6.png) no-repeat 0px 0px;
         display: block;
         width: 595px;
         height: 20px;
@@ -5550,11 +5550,11 @@ span.badge1 {
 }
 
 .log-input input.user {
-    background: url(../images/user.png)no-repeat 8px 10px #fff;
+    background: url(/Content/Admin/images/user.png)no-repeat 8px 10px #fff;
 }
 
 .log-input input.lock {
-    background: url(../images/lock.png)no-repeat 8px 10px #fff;
+    background: url(/Content/Admin/images/lock.png)no-repeat 8px 10px #fff;
 }
 
 .log-input-left {
@@ -5628,7 +5628,7 @@ span.checkbox2 {
 
 .log-input .checkbox input + i:after {
     content: '';
-    background: url("../images/tick.png") no-repeat 5px 5px;
+    background: url("/Content/Admin/images/tick.png") no-repeat 5px 5px;
     top: -1px;
     left: -1px;
     width: 15px;
@@ -5992,7 +5992,7 @@ p.creating {
     }
 
     .signin:after {
-        background: url(../images/6.png) no-repeat 0px 0px;
+        background: url(/Content/Admin/images/6.png) no-repeat 0px 0px;
         width: 590px;
         background-size: 100%;
     }
@@ -6124,7 +6124,7 @@ p.creating {
     }
 
     .signin:after {
-        background: url(../images/6.png) no-repeat 0px 0px;
+        background: url(/Content/Admin/images/6.png) no-repeat 0px 0px;
         width: 563px;
         background-size: 100%;
     }
@@ -6278,7 +6278,7 @@ p.creating {
     }
 
     .signin:after {
-        background: url(../images/6.png) no-repeat 0px 0px;
+        background: url(/Content/Admin/images/6.png) no-repeat 0px 0px;
         width: 520px;
         background-size: 100%;
     }
@@ -6509,7 +6509,7 @@ p.creating {
 
     .coffee-top i {
         top: 70%;
-        background: url(../images/1.png)no-repeat center;
+        background: url(/Content/Admin/images/1.png)no-repeat center;
         left: 31%;
         background-size: 70%;
     }
@@ -7085,7 +7085,7 @@ p.creating {
 
     .coffee-top i {
         top: 88%;
-        background: url(../images/1.png)no-repeat center;
+        background: url(/Content/Admin/images/1.png)no-repeat center;
         left: 44%;
         background-size: 70%;
     }
@@ -7387,7 +7387,7 @@ p.creating {
     }
 
     .sign-in-form-top {
-        background: url(../images/3.jpg) no-repeat 0px -80px;
+        background: url(/Content/Admin/images/3.jpg) no-repeat 0px -80px;
         min-height: 115px;
     }
 
@@ -7817,7 +7817,7 @@ p.creating {
     }
 
     .signin:after {
-        background: url(../images/6.png) no-repeat 0px 0px;
+        background: url(/Content/Admin/images/6.png) no-repeat 0px 0px;
         width: 482px;
         background-size: 100%;
     }
@@ -8188,7 +8188,7 @@ p.creating {
     }
 
     .signin:after {
-        background: url(../images/6.png) no-repeat 0px 0px;
+        background: url(/Content/Admin/images/6.png) no-repeat 0px 0px;
         width: 405px;
         background-size: 100%;
     }
@@ -8889,7 +8889,7 @@ p.creating {
     }
 
     .signin:after {
-        background: url(../images/6.png) no-repeat 0px 0px;
+        background: url(/Content/Admin/images/6.png) no-repeat 0px 0px;
         width: 305px;
         background-size: 100%;
     }

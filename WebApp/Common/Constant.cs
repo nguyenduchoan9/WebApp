@@ -22,6 +22,9 @@ namespace WebApp.Common
         /* Role : BAN */
         public static int BanRole = 3;
 
+        /* Role : BUYER */
+        public static int BuyerRole = 4;
+
         /* ADMIN STRING*/
         public static string SuperAdmin = "SUPERADMIN";
 
@@ -34,10 +37,19 @@ namespace WebApp.Common
         /* BAN STRING*/
         public static string Ban = "BAN";
 
+        /* BUYER STRING*/
+        public static string Buyer = "BUYER";
+
         /* MASSAGE ACCOUNT BAN*/
         public static string ErrMassageAccoutBan = "Your Account is banned !!!!!!";
 
         /* MASSAGE INVALID USERNAME OR PASSWORD*/
         public static string InvalidUsernameOrPassword = "Invalid username or password!";
+
+        /*STRING UNADMIN*/
+        public static string UnadminString = "UNADMIN";
+
+        /* NOT HAVE PERMISSION*/
+        public static string NoPermission = "YOU DON 'T HAVE PERMISSION";
     }
 }

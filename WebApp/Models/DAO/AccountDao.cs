@@ -21,17 +21,33 @@ namespace WebApp.Models.DAO
         {
             var session = SessionStorage.GetSessionUser();
             var role = session.Role;
-            
+
             if (Constant.SuperAdminRole == role)
             {
                 return db.Accounts.Where(x => x.role != Constant.SuperAdminRole).ToList();
             }
-            else if(Constant.AdminRole == role)
+            else if (Constant.AdminRole == role)
             {
                 var id = session.Id;
                 return db.Accounts.Where(x => x.role != Constant.SuperAdminRole && x.role != Constant.AdminRole).ToList();
             }
             return null;
+        }
+
+        public IEnumerable<Account> GetListPermission()
+        {
+
+            return db.Accounts.Where(x => x.role != Constant.SuperAdminRole
+            && x.role != Constant.BanRole && x.role != Constant.BuyerRole).ToList();
+
+        }
+
+        public IEnumerable<Account> GetListBuyerSeller()
+        {
+
+            return db.Accounts.Where(x => x.role != Constant.SuperAdminRole
+            && x.role != Constant.AdminRole && x.role != Constant.BanRole).ToList();
+
         }
 
         public bool Add()
@@ -155,10 +171,108 @@ namespace WebApp.Models.DAO
         public int ResetPassword(int id)
         {
             var account = db.Accounts.Find(id);
+            /*Check account exist*/
+            if (null == account)
+            {
+                return -2;
+            }
+
             try
             {
                 account.password = Constant.PasswordReset;
                 db.Entry(account).State = EntityState.Unchanged;
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+        /* change role to admin*/
+        public int ToAdmin(int id)
+        {
+            var account = db.Accounts.Find(id);
+
+            if (null == account)
+            {
+                return -2;
+            }
+
+            try
+            {
+                account.role = Constant.AdminRole;
+                db.Entry(account).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+        /* change role to customer*/
+        public int ToUnadmin(int id)
+        {
+            var account = db.Accounts.Find(id);
+
+            if (null == account)
+            {
+                return -2;
+            }
+
+            try
+            {
+                account.role = Constant.CustomerRole;
+                db.Entry(account).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+        /* change role to customer*/
+        public int ToCustomer(int id)
+        {
+            var account = db.Accounts.Find(id);
+
+            if (null == account)
+            {
+                return -2;
+            }
+
+            try
+            {
+                account.role = Constant.CustomerRole;
+                db.Entry(account).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+        /* change role to customer*/
+        public int ToBuyer(int id)
+        {
+            var account = db.Accounts.Find(id);
+
+            if (null == account)
+            {
+                return -2;
+            }
+
+            try
+            {
+                account.role = Constant.BuyerRole;
+                db.Entry(account).State = EntityState.Modified;
                 db.SaveChanges();
             }
             catch (Exception)

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using WebApp.Common;
 using WebApp.Models;
 using WebApp.Models.DAO;
+using WepApp.CommonClass;
 
 namespace WebApp.Controllers
 {
@@ -69,10 +70,88 @@ namespace WebApp.Controllers
 
             content = content.Replace("{{CustomerName}}", "CustomerName");
             content = content.Replace("{{FromEmailAddress}}", fromEmailAddress);
-            content = content.Replace("{{ToEmailAddress}}", toEmailAddress);
+            content = content.Replace("{{ToEmailAddress}}", "huyennblse61299@fpt.edu.vn");
 
-            new MailHelper().SendMail(toEmailAddress, "This is demo mail", content);
+            /*new MailHelper().SendMail(toEmailAddress, "This is demo mail", content);*/
+            new MailHelper().SendMail("huyennblse61299@fpt.edu.vn", "This is demo mail", content);
+        }
 
+        public ActionResult PermissionPage()
+        {
+            var session = SessionStorage.GetSessionUser();
+            var role = session.Role;
+            if (Constant.SuperAdminRole == role)
+            {
+                AccountDao dao = new AccountDao();
+                IEnumerable<Account> model = dao.GetListPermission();
+                return View(model);
+            }
+
+            ViewBag.Msg = Constant.NoPermission;
+            return View("NoPermission");
+        }
+
+        [HttpPost]
+        public JsonResult ToAdmin(int id)
+        {
+            AccountDao dao = new AccountDao();
+            var result = dao.ToAdmin(id);
+            bool resultJson = -1 != result;
+            return Json(new
+            {
+                status = resultJson
+            });
+        }
+
+        [HttpPost]
+        public JsonResult ToUnadmin(int id)
+        {
+            AccountDao dao = new AccountDao();
+            var result = dao.ToUnadmin(id);
+            bool resultJson = -1 != result;
+            return Json(new
+            {
+                status = resultJson
+            });
+        }
+
+        public ActionResult BuyerSellerPage()
+        {
+            var session = SessionStorage.GetSessionUser();
+            var role = session.Role;
+            if (Constant.SuperAdminRole == role)
+            {
+                AccountDao dao = new AccountDao();
+                IEnumerable<Account> model = dao.GetListBuyerSeller();
+                return View(model);
+            }
+            ViewBag.Msg = Constant.NoPermission;
+            return View("NoPermission");
+
+        }
+
+        [HttpPost]
+        public JsonResult ToCustomer(int id)
+        {
+            AccountDao dao = new AccountDao();
+            var result = dao.ToCustomer(id);
+            bool resultJson = -1 != result;
+            return Json(new
+            {
+                status = resultJson
+            });
+        }
+
+        [HttpPost]
+        public JsonResult ToBuyer(int id)
+        {
+            AccountDao dao = new AccountDao();
+            var result = dao.ToBuyer(id);
+            bool resultJson = -1 != result;
+            return Json(new
+            {
+                status = resultJson
+            });
         }
     }
 }

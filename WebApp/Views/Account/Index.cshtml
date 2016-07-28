@@ -117,7 +117,6 @@
                                 <th class="info">Role</th>
                                 <th class="info"></th>
                                 <th class="info"></th>
-                                <th class="info"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -155,17 +154,17 @@
                                                 BAN
                                             </td>
                                         }
-                                        else
+                                        else if (role == 4)
                                         {
                                             <td id="role-@item.id">
-                                                BAN
+                                                BUYER
                                             </td>
                                         }
                                     }
 
-                                    <td>
+                                    @*<td>
                                         <a href="#" class="btn btn-primary btn-block btn-admin" data-id="@item.id">@(role == Constant.AdminRole ? "UNADMIN" : "ADMIN")</a>
-                                    </td>
+                                    </td>*@
 
                                     <td>
                                         <a href="#" class="btn btn-warning btn-block btn-resetpassword" data-id="@item.id">RESET PASSWORD</a>

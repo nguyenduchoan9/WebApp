@@ -24,7 +24,7 @@ namespace WebApp.Models
         public int id { get; set; }
         public int buyerId { get; set; }
         public System.DateTime orderDate { get; set; }
-        public System.DateTime deliveryDate { get; set; }
+        public Nullable<System.DateTime> deliveryDate { get; set; }
         public decimal total { get; set; }
     
         public virtual Account Account { get; set; }

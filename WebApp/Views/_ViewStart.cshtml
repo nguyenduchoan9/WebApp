@@ -1,6 +1,8 @@
 ﻿@{
     var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
-    if ("Admin".Equals(controller) || "Product".Equals(controller) || "Account".Equals(controller))
+    if ("Admin".Equals(controller) || "Product".Equals(controller) 
+        || "Account".Equals(controller) || "Order".Equals(controller)
+        || "OrderDetail".Equals(controller))
     {
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
     }

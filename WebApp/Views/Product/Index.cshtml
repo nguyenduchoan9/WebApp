@@ -32,7 +32,49 @@
 }
 
 @section JsFooter{
-    
+<script type="text/javascript">
+        $(document)
+            .ready(function () {
+                $('#tblAccount')
+                    .DataTable({
+                        responsive: true
+                    });
+                $('#tblAccount').off('click').on('click', 'btn-approve',
+                    function (e) {
+                        e.preventDefault();
+                        var btn = $(this);
+                        var text = btn.text();
+                        var url;
+                        if (text == ("@Constant.Ban")) {
+                            url = "/Account/BanAccount";
+                        } else {
+                            url = "/Account/UnbanAccount";
+                        }
+
+                        var idUser = btn.data('id');
+                        $.ajax({
+                            url: url,
+                            data: { id: idUser },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (response) {
+                                var result = response.status;
+                                if (result) {
+                                    if (text == ("@Constant.Ban")) {
+                                        $('#role-' + idUser).text("@Constant.Ban");
+                                        btn.text('UNBAN');
+                                    } else {
+                                        $('#role-' + idUser).text("@Constant.Customer");
+                                        btn.text('BAN');
+                                    }
+
+                                }
+                            }
+                        });
+                    });
+
+            });
+</script>
     <script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
     <script src="~/Content/Admin/js/scripts.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -50,13 +92,12 @@
                     <table id="tblAccount" class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th class="info">SELLER</th>
-                                <th class="info">PRODUCT NAME</th>
                                 <th class="info">IMAGE</th>
+                                <th class="info">PRODUCT NAME</th>
                                 <th class="info">PRICE</th>
                                 <th class="info">DISCOUNT</th>
                                 <th class="info">DESCRIPTION</th>
-                                <th class="info"></th>
+                                <th class="info">STATUS</th>
                                 <th class="info"></th>
                                 <th class="info"></th>
                             </tr>
@@ -65,30 +106,28 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.sellerId</td>
-                                    <td id="username-@item.id">@item.name</td>
-                                    <td id="email-@item.id">image</td>
-                                    <td id="address-@item.id">@(item.price.ToString("N0"))</td>
-                                    <td id="email-@item.id">@(item.discount.ToString() + "%")</td>
-                                    <td id="email-@item.id">@item.description</td>
-                                    
+                                    <td id="image-@item.id">
+                                        <div class="center-block">
+                                            <img src="@item.image" class="img-responsive" style="max-width: 100px; height: auto; margin: auto" />
+                                        </div>
+                                    </td>
+                                    <td class="text-center" id="product-@item.id">@item.name</td>
+                                    <td id="price-@item.id" class="text-center">@(item.price.ToString("N0") + " VND")</td>
+                                    <td id="discount-@item.id" class="text-center">@(item.discount.ToString() + "%")</td>
+                                    <td id="description-@item.id" class="text-center">@item.description</td>
+                                    <td id="status-@item.id">@(item.status == 0 ? "Pending" : "Approved" )</td>
 
                                     <td>
-                                        <a href="#" class="btn btn-primary btn-block btn-admin" data-id="@item.id">aprreved</a>
+                                        <a href="#" class="btn btn-primary btn-block btn-approve" data-id="@item.id">APPROVE</a>
                                     </td>
 
                                     <td>
-                                        <a href="#" class="btn btn-warning btn-block btn-resetpassword" data-id="@item.id">reject</a>
+                                        <a href="#" class="btn btn-warning btn-block btn-reject" data-id="@item.id">REJECT</a>
                                     </td>
-
-                                    <td>
-                                        <a href="#" class="btn btn-danger btn-block btn-ban" data-id="@item.id">ban</a>
-                                    </td>
-
 
                                 </tr>
 
-                                        }
+                            }
 
                         </tbody>
                     </table>

@@ -51,5 +51,11 @@ namespace WebApp.Common
 
         /* NOT HAVE PERMISSION*/
         public static string NoPermission = "YOU DON 'T HAVE PERMISSION";
+
+        /*OrderDetailDao : string ListCustomizeOrderDetail*/
+        public static string ListCustomizeOrderDetail = "ListCustomizeOrderDetail";
+
+        /*OrderDetailDao : string SellerName*/
+        public static string Seller = "Seller";
     }
 }

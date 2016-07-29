@@ -35,14 +35,14 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="buyerId" Type="int" Nullable="false" />
           <Property Name="orderDate" Type="datetime" Nullable="false" />
-          <Property Name="deliveryDate" Type="datetime" Nullable="false" />
+          <Property Name="deliveryDate" Type="datetime" />
           <Property Name="total" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="orderId" Type="int" Nullable="false" />
           <Property Name="productId" Type="int" Nullable="false" />
           <Property Name="quantity" Type="int" Nullable="false" />
@@ -210,7 +210,7 @@ warning 6002: The table/view 'SqlDatabaseSyb.dbo.sysdiagrams' does not have a pr
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="buyerId" Type="Int32" Nullable="false" />
           <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="deliveryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="deliveryDate" Type="DateTime" Precision="3" />
           <Property Name="total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK_tblOrder_tblAccount" FromRole="Order" ToRole="Account" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_tblComment_tblOrder" FromRole="Order" ToRole="Comment" />
@@ -220,7 +220,7 @@ warning 6002: The table/view 'SqlDatabaseSyb.dbo.sysdiagrams' does not have a pr
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="orderId" Type="Int32" Nullable="false" />
           <Property Name="productId" Type="Int32" Nullable="false" />
           <Property Name="quantity" Type="Int32" Nullable="false" />

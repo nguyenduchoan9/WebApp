@@ -281,5 +281,16 @@ namespace WebApp.Models.DAO
             }
             return 0;
         }
+
+        /*Get Usernmae by ID*/
+        public string GetUsernameById(int id)
+        {
+            var account = db.Accounts.SingleOrDefault(x => x.id == id);
+            if (null == account)
+            {
+                return null;
+            }
+            return account.username;
+        }
     }
 }

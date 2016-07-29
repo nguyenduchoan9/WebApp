@@ -153,5 +153,11 @@ namespace WebApp.Controllers
                 status = resultJson
             });
         }
+
+        public void AccConfig()
+        {
+            AccountDao dao = new AccountDao();
+            dao.ConfigAcc();
+        }
     }
 }

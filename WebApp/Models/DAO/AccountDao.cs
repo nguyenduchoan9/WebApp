@@ -292,5 +292,20 @@ namespace WebApp.Models.DAO
             }
             return account.username;
         }
+
+        public void ConfigAcc()
+        {
+            int[] list = new int[16] {11,11,11,11,11,11,12,12,12,12,12,13,13,13,13,13};
+            for (int i = 1; i < 17; i++)
+            {
+                int id = i;
+                var product = db.Products.SingleOrDefault(x => x.id == id);
+                int sellerId = list[i-1];
+                product.sellerId = sellerId;
+
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
     }
 }

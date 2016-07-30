@@ -30,14 +30,14 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="buyerId" Type="int" Nullable="false" />
     <Property Name="orderDate" Type="datetime" Nullable="false" />
-    <Property Name="deliveryDate" Type="datetime" Nullable="false" />
+    <Property Name="deliveryDate" Type="datetime" />
     <Property Name="total" Type="money" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="orderId" Type="int" Nullable="false" />
     <Property Name="productId" Type="int" Nullable="false" />
     <Property Name="quantity" Type="int" Nullable="false" />

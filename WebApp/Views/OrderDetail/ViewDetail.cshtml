@@ -1,0 +1,116 @@
+﻿@using WebApp.Common
+@model IEnumerable<WebApp.Models.CustomizeOrderDetail>
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Styles{
+    @Styles.Render("~/Content/AdminCss")
+
+    <!----webfonts--->
+    <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!---//webfonts--->
+    <!-- Meters graphs -->
+    <!-- Placed js at the end of the document so the pages load faster -->
+}
+
+@section Scripts{
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <!-- chart -->
+    <script src="~/Content/Admin/js/Chart.js"></script>
+    <!-- //chart -->
+    <script src="~/Content/Admin/js/wow.min.js"></script>
+
+    <!--//end-animate-->
+    <script src="~/Content/Admin/js/jquery-1.10.2.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script type="text/javascript" charset="utf8" src="~/Scripts/media/js/jquery.dataTables.js"></script>
+
+}
+
+@section JsFooter{
+    <script type="text/javascript">
+        $(document)
+            .ready(function () {
+                $('#tblAccount')
+                    .DataTable({
+                        responsive: true
+                    });
+            });
+    </script>
+    <script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
+    <script src="~/Content/Admin/js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/Admin/js/bootstrap.min.js"></script>
+}
+
+<div id="page-wrapper">
+    @{
+        if (String.IsNullOrEmpty(ViewBag.SellerName))
+        {
+            <h2>SORRY! <strong>SERVER IS BUSY. </strong>PLEASE TRY AGAIN.
+            </h2>
+        }
+        else
+        {
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3>Account Manage</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>SELLER: </strong> @ViewBag.sellerName
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>BUYER: </strong> @ViewBag.buyerName
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <strong>TOTAL: </strong> @ViewBag.Total
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <div class="responsive-table">
+                            <table id="tblAccount" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="info">IMAGE</th>
+                                        <th class="info">CAKE</th>
+                                        <th class="info">SOLD PRICE</th>
+                                        <th class="info">QUANTITY</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td id="username-@item.OrderDetail.id">
+                                                <div class="center-block">
+                                                    <img src="@item.Product.image" class="img-responsive" style="max-width: 100px; height: auto; margin: auto"/>
+                                                </div>
+                                            </td>
+                                            <td id="name-@item.OrderDetail.id">@item.Product.name</td>
+                                            <td id="soldPrice-@item.OrderDetail.id">@(item.OrderDetail.soldPrice.ToString("N0") + "VND")</td>
+                                            <td id="quantity-@item.OrderDetail.id">@(item.OrderDetail.quantity.ToString())</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                            <a class="btn btn-primary" href="/Account/Add">ADD</a>
+                            <a class="btn btn-primary" href="/Account/SendMail">Send Mail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+

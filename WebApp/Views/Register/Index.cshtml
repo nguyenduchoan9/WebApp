@@ -6,6 +6,7 @@
 @section Styles{
     @Styles.Render("~/Content/AdminCss")
 
+    <link href="~/Content/DatePicker/css/datepicker.css" rel="stylesheet" />
     <!----webfonts--->
     <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
     <!---//webfonts--->
@@ -15,6 +16,7 @@
 }
 
 @section Scripts{
+
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
     <!-- chart -->
@@ -32,7 +34,144 @@
 }
 
 @section JsFooter{
-    
+    <script type="text/javascript">
+        $(document)
+            .ready(function () {
+                $('#dp1')
+                    .datepicker({
+                        format: 'dd-mm-yyyy',
+                        onSelect: function (dateText, inst) {
+                            $('#dp1').val(dateText);
+                        }
+                    });
+                $('#confirmpassword').keyup(checkPasswordMatch);
+                $('#myform').off('click').on('submit', function (e) {
+                    e.preventDefault();
+
+                    var email = $('#email').val();
+                    var sex = $('#myform input[name="sex"]:checked').val();
+                    var dp1 = $('#dp1').val();
+                    var address = $('#address').val();
+                    var phone = $('#phone').val();
+                    var username = $('#username').val();
+                    var password = $('#password').val();
+
+                    var err = 0;
+                    /*checking if a string is blank, null or undefined*/
+                    //if (email.length === 0 || !email.trim()) {
+                    //    err = -1;
+                    //    $('#email').addClass('has-error');
+                    //} else {
+                    //    $('#email').removeClass('has-error');
+                    //}
+
+                    /*checking if a string is blank or contains only white-space*/
+                    if (email.length === 0 || !email.trim()) {
+                        err = -1;
+                        $('#email').parent().addClass('has-error');
+                    } else {
+                        $('#email').parent().removeClass('has-error');
+                    }
+
+                    /*checking if a string is empty, null or undefined*/
+                    if (!sex || 0 === sex.length) {
+                        err = -1;
+
+                        $('#group-sex').addClass('has-error');
+                    } else {
+                        $('#group-sex').removeClass('has-error');
+                    }
+
+                    if (!dp1 || /^\s*$/.test(dp1)) {
+                        err = -1;
+                        $('#dp1').parent().addClass('has-error');
+                    } else {
+                        $('#dp1').parent().removeClass('has-error');
+                    }
+
+                    /*checking if a string is blank or contains only white-space*/
+                    if (!address || /^\s*$/.test(address)) {
+                        err = -1;
+                        $('#address').parent().addClass('has-error');
+                    } else {
+                        $('#address').parent().removeClass('has-error');
+                    }
+
+                    if (!phone || /^\s*$/.test(phone)) {
+                        err = -1;
+                        $('#phone').parent().addClass('has-error');
+                    } else {
+                        $('#phone').parent().removeClass('has-error');
+                    }
+
+                    if (!username || /^\s*$/.test(username)) {
+                        err = -1;
+                        $('#username').parent().addClass('has-error');
+                    } else {
+                        $('#username').parent().removeClass('has-error');
+                    }
+
+                    if (!password || /^\s*$/.test(password)) {
+                        err = -1;
+                        $('#password').parent().addClass('has-error');
+                    } else {
+                        $('#password').parent().removeClass('has-error');
+                    }
+                    if (-1 == err) {
+                        $('#invalid-information').removeClass('hidden');
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                    } else {
+                        $('#invalid-information').addClass('hidden');
+                        $('#invalid-email').addClass('hidden');
+                        $('#invalid-username').addClass('hidden');
+
+                        $.ajax({
+                            url: "/Register/Register",
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                email: email,
+                                birthdate: dp1,
+                                sex: sex,
+                                address: address,
+                                phone: phone,
+                                username: username,
+                                password: password
+                            },
+                            success: function (e) {
+                                var status = e.status;
+                                if (-1 == status) {
+                                    $('#invalid-email').removeClass('hidden');
+                                }else if (-2 == status) {
+                                    $('#invalid-username').removeClass('hidden');
+                                }else if (-3 == status) {
+                                    $('#invalid-email').removeClass('hidden');
+                                    $('#invalid-username').removeClass('hidden');
+                                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                                } else if( 1 == status) {
+                                    window.location.href = "/Register/RegisterSuccess";
+                                }
+                            }
+                        });
+                    }
+
+                });
+                
+            });
+        function checkPasswordMatch() {
+            var password = $("#password").val();
+            var confirmPassword = $("#confirmpassword").val();
+
+            if (password != confirmPassword) {
+                $("#password").parent().addClass('has-warning');
+                $("#confirmpassword").parent().addClass('has-warning');
+            } else {
+                $("#password").parent().removeClass('has-warning');
+                $("#confirmpassword").parent().removeClass('has-warning');
+            }
+        }
+    </script>
+    <script src="~/Content/DatePicker/js/bootstrap-datepicker.js"></script>
     <script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
     <script src="~/Content/Admin/js/scripts.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -43,78 +182,136 @@
     <div class="graphs">
         <div class="sign-up">
             <h3>Register Here</h3>
-            <p class="creating">
-                Having hands on experience in creating innovative designs,I do offer design
-                solutions which harness.
-            </p>
-            <h5>Personal Information</h5>
-            <div class="sign-u">
-                <div class="sign-up1">
-                    <h4>First Name* :</h4>
-                </div>
-                <div class="sign-up2">
-                    <form>
-                        <input type="text" placeholder=" " required=" " />
-                    </form>
-                </div>
-                <div class="clearfix"> </div>
+            <div class="text-center text-danger hidden" id="invalid-information">
+                Invalid information
             </div>
-            <div class="sign-u">
-                <div class="sign-up1">
-                    <h4>Last Name* :</h4>
-                </div>
-                <div class="sign-up2">
-                    <form>
-                        <input type="text" placeholder=" " required=" " />
-                    </form>
-                </div>
-                <div class="clearfix"> </div>
+            <div class="panel-body panel-body-inputin">
+                <h5>Personal Information</h5>
+
+                <form role="form" class="form-horizontal" id="myform">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Email Address</label>
+                        <div class="col-md-9">
+                            <div class="input-group in-grp1">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-envelope-o"></i>
+                                </span>
+                                <input type="text" name="email" id="email" class="form-control1 has-error" placeholder="Email Address">
+                            </div>
+                            <div class="text-left text-danger invalid-input-register hidden" id="invalid-email">
+                                Email has existed.
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">BirthDate</label>
+                        <div class="col-md-9">
+                            <div class="input-group in-grp1">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-birthday-cake"></i>
+                                </span>
+                                <input id="dp1" name="birthdate" class="form-control span" type="text" value="" />
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Sex</label>
+                        <div class="col-md-9">
+                            <div class="input-group in-grp1" id="group-sex">
+                                <div class="radio-inline">
+                                    <label><input type="radio" name="sex" value="0">Male</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label><input type="radio" name="sex" value="1">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Address</label>
+                        <div class="col-md-9">
+                            <div class="input-group in-grp1">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-home"></i>
+                                </span>
+                                <input type="text" id="address" name="address" class="form-control1" placeholder="Address">
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Phone</label>
+                        <div class="col-md-9">
+                            <div class="input-group in-grp1">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </span>
+                                <input type="text" id="phone" name="phone" class="form-control1" placeholder="Phone">
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <!--  Login Username and pasword-->
+                    <h5>Login Information</h5>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Username</label>
+                        <div class="col-md-9">
+                            <div class="input-group in-grp1">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <input type="text" name="username" id="username" class="form-control1" placeholder="Username">
+                            </div>
+                            <div class="text-left text-danger invalid-input-register hidden" id="invalid-username">
+                                Username has existed.
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Password</label>
+                        <div class="col-md-9">
+                            <div class="input-group in-grp1">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input type="password" name="password" id="password" class="form-control1" placeholder="Password" >
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Confirm Password</label>
+                        <div class="col-md-9">
+                            <div class="input-group in-grp1">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-key"></i>
+                                </span>
+                                <input type="password" name="confirmpassword" id="confirmpassword" class="form-control1" placeholder="Confirm Password" >
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="container-fluid">
+                            <button id="btnSubmit" class="btn btn-success" style="width: 50%; margin: auto" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="sign-u">
-                <div class="sign-up1">
-                    <h4>Email Address* :</h4>
-                </div>
-                <div class="sign-up2">
-                    <form>
-                        <input type="text" placeholder=" " required=" " />
-                    </form>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-            <h6>Login Information</h6>
-            <div class="sign-u">
-                <div class="sign-up1">
-                    <h4>Password* :</h4>
-                </div>
-                <div class="sign-up2">
-                    <form>
-                        <input type="password" placeholder=" " required=" " />
-                    </form>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-            <div class="sign-u">
-                <div class="sign-up1">
-                    <h4>Confirm Password* :</h4>
-                </div>
-                <div class="sign-up2">
-                    <form>
-                        <input type="password" placeholder=" " required=" " />
-                    </form>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-            <div class="sub_home">
-                <div class="sub_home_left">
-                    <form>
-                        <input type="submit" value="Submit">
-                    </form>
-                </div>
-                <div class="sub_home_right">
-                    <p>Go Back to <a href="index.html">Home</a></p>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
+
         </div>
     </div>
 </div>

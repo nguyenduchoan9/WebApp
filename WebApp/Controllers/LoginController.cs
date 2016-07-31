@@ -79,6 +79,10 @@ namespace WebApp.Controllers
             }
         }
 
-        
+        public ActionResult RedirectToBanPage()
+        {
+
+            return View();
+        }
     }
 }

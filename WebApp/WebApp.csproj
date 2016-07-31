@@ -214,6 +214,7 @@
     <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\EmailTemplate\EmailSendPassword.html" />
     <Content Include="Common\EmailTemplate\NewOrder.html" />
     <Content Include="Content\Admin\css\animate.css" />
     <Content Include="Content\Admin\css\bootstrap.min.css" />
@@ -361,6 +363,8 @@
     <Content Include="Content\Customer\js\jquery.min.js" />
     <Content Include="Content\Customer\js\jquery.mousewheel.js" />
     <Content Include="Content\Customer\js\simpleCart.min.js" />
+    <Content Include="Content\DatePicker\css\datepicker.css" />
+    <Content Include="Content\DatePicker\js\bootstrap-datepicker.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -433,6 +437,8 @@
     <Content Include="Models\SqlDatabaseSyb.edmx.diagram">
       <DependentUpon>SqlDatabaseSyb.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\DatePicker\less\datepicker.less" />
+    <Content Include="Content\Admin\fonts\fontawesome-webfont.woff2" />
     <None Include="Properties\PublishProfiles\demois.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\local1.pubxml" />
@@ -522,6 +528,11 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\OrderDetail\Index.cshtml" />
     <Content Include="Views\OrderDetail\ViewDetail.cshtml" />
+    <Content Include="Views\ForgotPassword\Index.cshtml" />
+    <Content Include="Views\Login\RedirectToBanPage.cshtml" />
+    <Content Include="Views\ForgotPassword\GetPassword.cshtml" />
+    <Content Include="Views\ForgotPassword\SendMailErr.cshtml" />
+    <Content Include="Views\Register\RegisterSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3648,9 +3648,9 @@ select[multiple] {
 .input-group {
     position: relative;
     display: table;
-    width: 60%;
+    width: 100%;
     float: left;
-    margin: 0 0 0 10em;
+    margin: 0 0 0 5%;
     border-collapse: separate;
 }
 
@@ -5750,7 +5750,7 @@ p.creating {
     }
 
 .sign-up h5 {
-    margin: 0 0 2em;
+    margin: 0 0 1em;
     color: #F44336;
     font-size: 20px;
 }

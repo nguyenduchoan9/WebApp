@@ -2850,7 +2850,7 @@ select[multiple].form-group-lg .form-control {
   border-color: #8a6d3b;
 }
 .has-warning .form-control-feedback {
-  color: #8a6d3b;
+  color: #8a6d3b;input-group
 }
 .has-error .help-block,
 .has-error .control-label,
@@ -2879,6 +2879,13 @@ select[multiple].form-group-lg .form-control {
   background-color: #f2dede;
   border-color: #a94442;
 }
+
+.has-error .input-group {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #a94442;
+}
+
 .has-error .form-control-feedback {
   color: #a94442;
 }

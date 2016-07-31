@@ -76,6 +76,31 @@ namespace WebApp.Models.DAO
             return false;
         }
 
+        public bool AddNewAccount(string email, DateTime birthdate, bool sex, string address, string phone, string username,
+            string password)
+        {
+            Account acc = new Account();
+            int maxId = db.Accounts.Max(x => x.id);
+            int id = maxId + 1;
+            acc.id = id;
+            acc.username = username;
+            acc.password = password;
+            acc.address = address;
+            acc.email = email;
+            acc.birthdate = birthdate;
+            acc.sex = sex;
+            acc.phone = phone;
+            acc.role = 2;
+
+            db.Accounts.Add(acc);
+            int result = db.SaveChanges();
+            if (result != 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         /*
          * param: string username
          * output:

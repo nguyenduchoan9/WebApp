@@ -159,5 +159,7 @@ namespace WebApp.Controllers
             AccountDao dao = new AccountDao();
             dao.ConfigAcc();
         }
+
+        
     }
 }

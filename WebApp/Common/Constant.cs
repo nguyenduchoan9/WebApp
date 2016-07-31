@@ -57,5 +57,8 @@ namespace WebApp.Common
 
         /*OrderDetailDao : string SellerName*/
         public static string Seller = "Seller";
+
+/*Massage Error Username Has Existed*/
+
     }
 }

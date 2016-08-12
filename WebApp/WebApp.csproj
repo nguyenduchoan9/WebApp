@@ -210,17 +210,24 @@
     <Compile Include="CommonClass\SessionStorage.cs" />
     <Compile Include="CommonClass\SessionUser.cs" />
     <Compile Include="Common\Constant.cs" />
+    <Compile Include="Common\FileUploader.ashx.cs">
+      <DependentUpon>FileUploader.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Common\Key.cs" />
     <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
+    <Compile Include="Controllers\HpAddProductController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\UpdateProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -439,6 +446,7 @@
     </Content>
     <Content Include="Content\DatePicker\less\datepicker.less" />
     <Content Include="Content\Admin\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Common\FileUploader.ashx" />
     <None Include="Properties\PublishProfiles\demois.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\local1.pubxml" />
@@ -533,9 +541,14 @@
     <Content Include="Views\ForgotPassword\GetPassword.cshtml" />
     <Content Include="Views\ForgotPassword\SendMailErr.cshtml" />
     <Content Include="Views\Register\RegisterSuccess.cshtml" />
+    <Content Include="Views\HPAddProduct\Index.cshtml" />
+    <Content Include="Views\HPAddProduct\AddProductSuccessPage.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
+    <Content Include="Views\Facebook\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\UpdateProduct\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -12,6 +12,20 @@
     <!---//webfonts--->
     <!-- Meters graphs -->
     <!-- Placed js at the end of the document so the pages load faster -->
+    <style>
+        .alert-msg-delete {
+            position: fixed;
+            top: 4em;
+            right: 1em;
+            opacity: 0;
+        }
+        .alert-msg-update {
+            position: fixed;
+            top: 4em;
+            right: 1em;
+            opacity: 0;
+        }
+    </style>
 }
 
 @section Scripts{
@@ -32,49 +46,238 @@
 }
 
 @section JsFooter{
-<script type="text/javascript">
+    <script type="text/javascript">
         $(document)
             .ready(function () {
                 $('#tblAccount')
                     .DataTable({
                         responsive: true
                     });
-                $('#tblAccount').off('click').on('click', 'btn-approve',
-                    function (e) {
-                        e.preventDefault();
-                        var btn = $(this);
-                        var text = btn.text();
-                        var url;
-                        if (text == ("@Constant.Ban")) {
-                            url = "/Account/BanAccount";
-                        } else {
-                            url = "/Account/UnbanAccount";
-                        }
 
-                        var idUser = btn.data('id');
-                        $.ajax({
-                            url: url,
-                            data: { id: idUser },
-                            dataType: "json",
-                            type: "POST",
-                            success: function (response) {
-                                var result = response.status;
-                                if (result) {
-                                    if (text == ("@Constant.Ban")) {
-                                        $('#role-' + idUser).text("@Constant.Ban");
-                                        btn.text('UNBAN');
-                                    } else {
-                                        $('#role-' + idUser).text("@Constant.Customer");
-                                        btn.text('BAN');
+                
+                $('#tblAccount')
+                    .on('click',
+                        '.btn-delete-product',
+                            function (e) {
+                                e.preventDefault();
+                                var btn = $(this);
+                                var id = btn.data('id');
+
+                                $.ajax({
+                                    url: "/Product/DeleteProduct",
+                                    data: { id: id },
+                                    dataType: "json",
+                                    type: "POST",
+                                    success: function (response) {
+                                        var status = response.status;
+                                        if (true == status) {
+
+                                            var oTable = $('#tblAccount').dataTable();
+                                            var row = btn.closest("tr").get(0);
+                                            oTable.fnDeleteRow(oTable.fnGetPosition(row));
+                                            oTable.fnDraw(true);
+
+                                            $('.alert-msg-delete').animate({ opacity: '1' }, 3000).animate({ opacity: '1' }, 1000).animate({ opacity: '0' }, 3000);
+                                        }
+                                    },
+                                    error: function (xhr, ajaxOptions, thrownError) {
+                                        alert("error delete");
                                     }
-
-                                }
-                            }
-                        });
-                    });
+                                });
+                            });
+                $('#tblAccount')
+                    .on('click',
+                        '.btn-update-product',
+                            function (e) {
+                                e.preventDefault();
+                                var btn = $(this);
+                                var id = btn.data('id');
+                                $.ajax({
+                                    url: "/Product/GetProductById",
+                                    data: { id: id },
+                                    dataType: "json",
+                                    type: "POST",
+                                    success: function (response) {
+                                        var product = JSON.parse(response.product);
+                                        if (null != product) {
+                                            $('#productName').val(product.name);
+                                            $('#productName').attr("data-id", product.id);
+                                            $('#price').val(product.price);
+                                            $('#discount').val(product.discount);
+                                            $('#description').val(product.description);
+                                            $('#myUploadedImg').attr("src", product.image);
+                                            $('#registerform').removeClass('hidden');
+                                            $("html, body").animate({ scrollTop: $('#registerform').offset().top }, "slow");
+                                        }
+                                    },
+                                    error: function (xhr, ajaxOptions, thrownError) {
+                                        alert("error get info product!!");
+                                    }
+                                });
+                            });
 
             });
-</script>
+    </script>
+    <script type="text/javascript">
+        $(document)
+            .ready(function() {
+                var url = window.URL || window.webkitURL;
+                $("#f_UploadImage")
+                    .on('change',
+                        function() {
+
+                            var file, img;
+                            if ((file = this.files[0])) {
+                                img = new Image();
+                                img.onload = function() {
+                                    sendFile(file);
+                                };
+                                img.onerror = function() {
+                                    alert("Not a valid file:" + file.type);
+                                };
+                                img.src = url.createObjectURL(file);
+                            }
+                        });
+                $('#myform')
+                    .off('click')
+                    .on('submit',
+                        function(e) {
+                            e.preventDefault();
+                            var id = $('#productName').attr("data-id");;
+                            var productName = $('#productName').val();
+                            var price = $('#price').val();
+                            var discount = $('#discount').val();
+                            var description = $('#description').val();
+                            var image = $('#myUploadedImg').attr("src");
+
+                            var err = 0;
+
+                            /*checking if a string is empty, null or undefined*/
+                            if (!productName || 0 === productName.length) {
+                                err = -1;
+                                $('#productName').addClass('has-error');
+                            } else {
+                                $('#productName').removeClass('has-error');
+                            }
+
+                            /*checking if a string is empty, null or undefined*/
+                            if (!discount || 0 === discount.length) {
+                                err = -1;
+
+                                $('#price').addClass('has-error');
+                            } else {
+                                $('#price').removeClass('has-error');
+                            }
+
+                            if (!price || 0 === price.length) {
+                                err = -1;
+
+                                $('#discount').addClass('has-error');
+                            } else {
+                                $('#discount').removeClass('has-error');
+                            }
+
+                            if (!description || 0 === description.length) {
+                                err = -1;
+
+                                $('#description').addClass('has-error');
+                            } else {
+                                $('#description').removeClass('has-error');
+                            }
+
+                            if (!image || 0 === image.length) {
+                                err = -1;
+
+                                $('#f_UploadImage').addClass('has-error');
+                            } else {
+                                $('#f_UploadImage').removeClass('has-error');
+                            }
+
+                            if (-1 == err) {
+                                $('#invalid-information').removeClass('hidden');
+                                $("html, body").animate({ scrollTop: $('#registerform').offset().top }, "slow");
+                            } else {
+                                $('#invalid-information').addClass('hidden');
+                                $('#invalid-name').addClass('hidden');
+
+                                $.ajax({
+                                    url: "/Product/UpdateProduct",
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        id: id,
+                                        productName: productName,
+                                        price: price,
+                                        discount: discount,
+                                        description: description,
+                                        image: image
+                                    },
+                                    success: function (response) {
+                                        var product = JSON.parse(response.product);
+                                        if (null != product) {
+                                            $('#name-' + product.id).text(product.name);
+                                            var price = product.price;
+                                            price = format(price);
+                                            $('#price-' + product.id).text(price + " VND");
+                                            $('#discount-' + product.id).text(product.discount.toString() + "%");
+                                            $('#description-' + product.id).text(product.description);
+                                            $('#image-' + product.id + " img").attr("src", product.image);
+                                            $("html, body").animate({ scrollTop: $('#name-' + product.id).offset().top }, "slow");
+                                            $('.alert-msg-update').animate({ opacity: '1' }, 3000).animate({ opacity: '1' }, 1000).animate({ opacity: '0' }, 3000);
+                                            $('#registerform').addClass('hidden');
+                                        } else {
+                                            alert('fail');
+                                        }
+                                    }
+                                });
+                            }
+
+                        });
+
+            });
+        var format = function (num) {
+            var str = num.toString().replace("$", ""), parts = false, output = [], i = 1, formatted = null;
+            if (str.indexOf(".") > 0) {
+                parts = str.split(".");
+                str = parts[0];
+            }
+            str = str.split("").reverse();
+            for (var j = 0, len = str.length; j < len; j++) {
+                if (str[j] != ",") {
+                    output.push(str[j]);
+                    if (i % 3 == 0 && j < (len - 1)) {
+                        output.push(",");
+                    }
+                    i++;
+                }
+            }
+            formatted = output.reverse().join("");
+            return (formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+        };
+
+        function sendFile(file) {
+
+            var formData = new FormData();
+            formData.append('file', $('#f_UploadImage')[0].files[0]);
+            $.ajax({
+                type: 'post',
+                url: '/Common/FileUploader.ashx',
+                data: formData,
+                success: function(status) {
+                    if (status != 'error') {
+                        var myPath = "/Content/Customer/images/" + status;
+                        $("#myUploadedImg").attr("src", myPath);
+                        $("#myUploadedImg").attr("data-src", status);
+                    }
+                },
+                processData: false,
+                contentType: false,
+                error: function() {
+                    alert("Whoops something went wrong!");
+                }
+            });
+        }
+    </script>
     <script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
     <script src="~/Content/Admin/js/scripts.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -89,7 +292,7 @@
         <div class="panel-body">
             <div class="dataTable_wrapper">
                 <div class="responsive-table">
-                    <table id="tblAccount" class="table table-striped table-bordered table-hover">
+                    <table id="tblAccount" class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th class="info">IMAGE</th>
@@ -105,27 +308,30 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td id="image-@item.id">
-                                        <div class="center-block">
-                                            <img src="@item.image" class="img-responsive" style="max-width: 100px; height: auto; margin: auto" />
-                                        </div>
-                                    </td>
-                                    <td class="text-center" id="product-@item.id">@item.name</td>
-                                    <td id="price-@item.id" class="text-center">@(item.price.ToString("N0") + " VND")</td>
-                                    <td id="discount-@item.id" class="text-center">@(item.discount.ToString() + "%")</td>
-                                    <td id="description-@item.id" class="text-center">@item.description</td>
-                                    <td id="status-@item.id">@(item.status == 0 ? "Pending" : "Approved" )</td>
+                                if (1 != item.status)
+                                {
+                                    <tr id="row-@item.id">
+                                        <td id="image-@item.id">
+                                            <div class="center-block">
+                                                <img src="@item.image" class="img-responsive" style="max-width: 100px; height: auto; margin: auto" />
+                                            </div>
+                                        </td>
+                                        <td class="text-center" id="name-@item.id">@item.name</td>
+                                        <td id="price-@item.id" class="text-center">@(item.price.ToString("N0") + " VND")</td>
+                                        <td id="discount-@item.id" class="text-center">@(item.discount.ToString() + "%")</td>
+                                        <td id="description-@item.id" class="text-center">@item.description</td>
+                                        <td id="status-@item.id">@(item.status == 0 ? "Pending" : "Approved" )</td>
 
-                                    <td>
-                                        <a href="#" class="btn btn-primary btn-block btn-approve" data-id="@item.id">APPROVE</a>
-                                    </td>
+                                        <td>
+                                            <a href="#" class="btn btn-primary btn-block btn-update-product" data-id="@item.id">Update</a>
+                                        </td>
 
-                                    <td>
-                                        <a href="#" class="btn btn-warning btn-block btn-reject" data-id="@item.id">REJECT</a>
-                                    </td>
+                                        <td>
+                                            <a href="#" class="btn btn-warning btn-block btn-delete-product" data-id="@item.id">Delete</a>
+                                        </td>
 
-                                </tr>
+                                    </tr>
+                                }
 
                             }
 
@@ -133,9 +339,110 @@
                     </table>
                     <a class="btn btn-primary" href="/Account/Add">ADD</a>
                     <a class="btn btn-primary" href="/Account/SendMail">Send Mail</a>
+                    <a class="btn btn-primary abcxyz" href="#">Send Mail</a>
+                    <script type="text/javascript">
+                        $(document)
+                            .ready(function () {
+                                $('.abcxyz').off('click').on('click', function (e) {
+                                    e.preventDefault();
+                                    $.ajax({
+                                        url: "/Product/Change",
+                                        dataType: "json",
+                                        type: "POST",
+                                        success: function (response) {
+
+                                        },
+                                        error: function (xhr, ajaxOptions, thrownError) {
+                                            alert("eeee");
+                                        }
+                                    });
+                                });
+                            });
+                    </script>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="container hidden" id="registerform">
+
+        <div class="register">
+
+            <form role="form" class="form-horizontal" id="myform">
+                <div class="register-top-grid">
+                    <h3>Update Product</h3>
+                    <div class="text-center text-danger hidden" id="invalid-information" style="margin: 0 0 2em 0; font-size: 130%">
+                        Invalid information
+                    </div>
+                    <div class="input">
+                        <span><strong>Product Name</strong></span>
+
+                        <input type="text" name="productName" id="productName" class="form-control1" placeholder="Product Name" data-id="">
+
+                        <div class="text-left text-danger invalid-input-register hidden" id="invalid-name">
+                            Product name has existed.
+                        </div>
+
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="input">
+                        <span>Price</span>
+
+                        <input type="text" name="price" id="price" class="form-control1 " placeholder="Price">
+
+
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="input">
+                        <span>Discount</span>
+
+                        <input type="text" name="discount" id="discount" class="form-control1 " placeholder="Discount">
+
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="input">
+                        <span>Description</span>
+
+                        <input type="text" name="discription" id="description" class="form-control1 " placeholder="Discription">
+
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="input">
+                        <span>Image</span>
+
+                        <input type="file" class="upload" id="f_UploadImage"><br />
+                        <img id="myUploadedImg" alt="Photo" style="max-width: 357px; height: auto" data-src="" />
+
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="input">
+                        <div class="container-fluid">
+                            <button id="btnSubmit" class="btn btn-success" style="width: 50%; margin: auto" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
 </div>
+<div class="alert-msg-delete">
+    <div class="alert alert-success" role="alert">
+        <strong>The product has been deleted!!!!</strong>
+    </div>
+</div>
+
+<div class="alert-msg-update">
+    <div class="alert alert-success" role="alert">
+        <strong>The product has been updated!!!!</strong>
+    </div>
+</div>
+
 

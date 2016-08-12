@@ -2,7 +2,12 @@
 @{
     ViewBag.Title = "Index";
 }
-
+@section Styles{
+    @Styles.Render("~/Content/HomepageCss")
+}
+@section Scripts{
+    @Scripts.Render("~/Content/HomepageJs")
+}
 
 @section JsFooter{
 

@@ -3193,7 +3193,7 @@ canvas#doughnut, canvas#line, canvas#polarArea, #bar, #pie, #radar {
 }
 /* --  grids  -- */
 .form-control1, .form-control_2.input-sm {
-    border: 1px solid #e0e0e0;
+    border: 1px solid #555;
     padding: 5px 18px;
     color: #616161;
     background: #fff;
@@ -3202,7 +3202,7 @@ canvas#doughnut, canvas#line, canvas#polarArea, #bar, #pie, #radar {
     font-size: 0.85em;
     font-weight: 300;
     height: 40px;
-    border-radius: 0;
+    border-radius: 3px;
     -webkit-appearance: none;
     outline: none;
 }
@@ -9184,4 +9184,58 @@ p.creating {
     margin: 3em 0 0;
     font-family: 'Cabin', sans-serif;
     font-size: 100%;
+}
+
+.invalid-input-register {
+    margin: 0.5em 0 0 0;
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+
+
+.input input.has-error  {
+    color: #171414;
+    background-color: #FAF5F6;
+    border:  2px solid #F01136 !important;
+    border-radius: 3px;
+}
+
+.register {
+    padding: 3em 0;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.register-top-grid h3, .register-bottom-grid h3 {
+    color: #0A197A;
+    font-size: 3em;
+    padding-bottom: 0.5em;
+    margin: 0;
+    text-align: center;
+    font-family: 'Marvel-Regular';
+}
+
+.register-top-grid .input, .register-bottom-grid .input {
+    width: 60%;
+    margin: 1em auto;
+}
+
+.register-top-grid span, .register-bottom-grid span {
+    color: #0A197A;
+    font-size: 0.85em;
+    padding-bottom: 0.2em;
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.register-top-grid input[type="text"], .register-bottom-grid input[type="password"] {
+    border: 1px solid #555;
+    outline-color: #FD9F3E;
+    width: 100%;
+    font-size: 1em;
+    padding: 0.5em;
 }

@@ -1,0 +1,243 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Styles{
+    @Styles.Render("~/Content/AdminCss")
+
+    <!----webfonts--->
+    <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!---//webfonts--->
+    <!-- Meters graphs -->
+    <!-- Placed js at the end of the document so the pages load faster -->
+}
+
+@section Scripts{
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <!-- chart -->
+    <script src="~/Content/Admin/js/Chart.js"></script>
+    <!-- //chart -->
+    <script src="~/Content/Admin/js/wow.min.js"></script>
+
+    <!--//end-animate-->
+    <script src="~/Content/Admin/js/jquery-1.10.2.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script type="text/javascript" charset="utf8" src="~/Scripts/media/js/jquery.dataTables.js"></script>
+
+}
+
+@section JsFooter{
+    <script type="text/javascript">
+        $(document)
+            .ready(function () {
+                var url = window.URL || window.webkitURL;
+                $("#f_UploadImage")
+                    .on('change',
+                        function () {
+
+                            var file, img;
+                            if ((file = this.files[0])) {
+                                img = new Image();
+                                img.onload = function () {
+                                    sendFile(file);
+                                };
+                                img.onerror = function () {
+                                    alert("Not a valid file:" + file.type);
+                                };
+                                img.src = url.createObjectURL(file);
+                            }
+                        });
+                $('#myform')
+                    .off('click')
+                    .on('submit',
+                        function (e) {
+                            e.preventDefault();
+
+                            var productName = $('#productName').val();
+                            var price = $('#price').val();
+                            var discount = $('#discount').val();
+                            var description = $('#description').val();
+                            var image = $('#myUploadedImg').attr("data-src");;
+
+                            var err = 0;
+
+                            /*checking if a string is empty, null or undefined*/
+                            if (!productName || 0 === productName.length) {
+                                err = -1;
+                                $('#productName').addClass('has-error');
+                            } else {
+                                $('#productName').removeClass('has-error');
+                            }
+
+                            /*checking if a string is empty, null or undefined*/
+                            if (!discount || 0 === discount.length) {
+                                err = -1;
+
+                                $('#price').addClass('has-error');
+                            } else {
+                                $('#price').removeClass('has-error');
+                            }
+
+                            if (!price || 0 === price.length) {
+                                err = -1;
+
+                                $('#discount').addClass('has-error');
+                            } else {
+                                $('#discount').removeClass('has-error');
+                            }
+
+                            if (!description || 0 === description.length) {
+                                err = -1;
+
+                                $('#description').addClass('has-error');
+                            } else {
+                                $('#description').removeClass('has-error');
+                            }
+
+                            if (!image || 0 === image.length) {
+                                err = -1;
+
+                                $('#f_UploadImage').addClass('has-error');
+                            } else {
+                                $('#f_UploadImage').removeClass('has-error');
+                            }
+
+                            if (-1 == err) {
+                                $('#invalid-information').removeClass('hidden');
+                                $("html, body").animate({ scrollTop: 0 }, "slow");
+                            } else {
+                                $('#invalid-information').addClass('hidden');
+                                $('#invalid-name').addClass('hidden');
+
+                                $.ajax({
+                                    url: "/HpAddProduct/RegisterProduct",
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        productName: productName,
+                                        price: price,
+                                        discount: discount,
+                                        description: description,
+                                        image: image
+                                    },
+                                    success: function (e) {
+                                        var status = e.status;
+                                        if (-1 == status) {
+                                            $('#invalid-name').removeClass('hidden');
+                                        } else if (-2 == status) {
+                                            alert('error');
+                                        } else if (0 == status) {
+                                            $('#invalid-name').removeClass('hidden');
+                                            window.location.href = "/HpAddProduct/AddProductSuccessPage";
+                                        }
+                                    }
+                                });
+                            }
+
+                        });
+
+            });
+
+        function sendFile(file) {
+
+            var formData = new FormData();
+            formData.append('file', $('#f_UploadImage')[0].files[0]);
+            $.ajax({
+                type: 'post',
+                url: '/Common/FileUploader.ashx',
+                data: formData,
+                success: function (status) {
+                    if (status != 'error') {
+                        var myPath = "/Content/Customer/images/" + status;
+                        $("#myUploadedImg").attr("src", myPath);
+                        $("#myUploadedImg").attr("data-src", status);
+                    }
+                },
+                processData: false,
+                contentType: false,
+                error: function () {
+                    alert("Whoops something went wrong!");
+                }
+            });
+        }
+    </script>
+    <script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
+    <script src="~/Content/Admin/js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/Admin/js/bootstrap.min.js"></script>
+}
+<div id="page-wrapper">
+
+    <div class="container">
+
+        <div class="register">
+
+            <form role="form" class="form-horizontal" id="myform">
+                <div class="register-top-grid">
+                    <h3>Add Product</h3>
+                    <div class="text-center text-danger hidden" id="invalid-information" style="margin: 0 0 2em 0; font-size: 130%">
+                        Invalid information
+                    </div>
+                    <div class="input">
+                        <span><strong>Product Name</strong></span>
+
+                        <input type="text" name="productName" id="productName" class="form-control1" placeholder="Product Name">
+
+                        <div class="text-left text-danger invalid-input-register hidden" id="invalid-name">
+                            Product name has existed.
+                        </div>
+
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="input">
+                        <span>Price</span>
+
+                        <input type="text" name="price" id="price" class="form-control1 " placeholder="Price">
+
+
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="input">
+                        <span>Discount</span>
+
+                        <input type="text" name="discount" id="discount" class="form-control1 " placeholder="Discount">
+
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="input">
+                        <span>Description</span>
+
+                        <input type="text" name="discription" id="description" class="form-control1 " placeholder="Discription">
+
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="input">
+                        <span>Image</span>
+
+                        <input type="file" class="upload" id="f_UploadImage"><br />
+                        <img id="myUploadedImg" alt="Photo" style="max-width:357px; height: auto" data-src="" />
+
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="input">
+                        <div class="container-fluid">
+                            <button id="btnSubmit" class="btn btn-success" style="width: 50%; margin: auto" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+

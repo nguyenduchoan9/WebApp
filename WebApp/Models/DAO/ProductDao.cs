@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -12,6 +13,7 @@ namespace WebApp.Models.DAO
         public ProductDao()
         {
             db = new SqlDatabaseSybEntities();
+            db.Configuration.ProxyCreationEnabled = false;
         }
 
         public IEnumerable<Product> GetList()
@@ -28,6 +30,7 @@ namespace WebApp.Models.DAO
 
         public int CheckProductNameExist(string productName)
         {
+
             var productNameExist = db.Products.SingleOrDefault(x => x.name.Equals(productName));
             if (null != productNameExist)
             {
@@ -46,6 +49,7 @@ namespace WebApp.Models.DAO
             int maxId = db.Products.Max(x => x.id);
             int id = maxId + 1;
             product.id = id;
+            product.status = 0;
             try
             {
                 db.Products.Add(product);
@@ -56,6 +60,83 @@ namespace WebApp.Models.DAO
                 return -1;
             }
             return 0;
+        }
+
+        public Product GetProductById(int id)
+        {
+            
+            return db.Products.SingleOrDefault(x => x.id == id);
+        }
+
+        public bool UpdateProduct(int id, string productName, Decimal price, int discount, string description,
+            string image)
+        {
+            var product = db.Products.SingleOrDefault(x => x.id == id);
+
+            if (null != product)
+            {
+                product.name = productName;
+                product.price = price;
+                product.discount = discount;
+                product.description = description;
+                product.image = image;
+
+                try
+                {
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+
+            return true;
+        }
+
+        public bool DeleteProductById(int id)
+        {
+            var product = db.Products.SingleOrDefault(x => x.id == id);
+
+            if (null != product)
+            {
+                product.status = 1;
+
+                try
+                {
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public void Change()
+        {
+            var list = db.Products.ToList();
+
+            foreach (var product in list)
+            {
+                product.status = 0;
+
+                db.Entry(product).State = EntityState.Modified;
+            }
+            db.SaveChanges();
         }
     }
 }

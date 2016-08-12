@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <meta property="fb:app_id" content="1797425837167451" />
+    <meta property="fb:admins" content="100006563806362" />
+
+    <meta property="og:url" content="http://demose0967.azurewebsites.net/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Demo Facebook Plugin" />
+    <meta property="og:description" content="This is description" />
+    <meta property="og:image" content="http://www.pokemon20.com/assets/img/mythical/celebi/poke_celebi.png" />
+    <title>Facebook Plugin</title>
+
+    @Styles.Render("~/Content/AdminCss")
+</head>
+<body>
+    <div class="row">
+        <!-- button like-->
+        <div class="col-md-12">
+            <div class="fb-like" data-href="http://demose0967.azurewebsites.net/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
+        </div>
+        <!-- end button like-->
+        <!-- button share-->
+        <div class="col-md-12">
+            <div class="fb-share-button" data-href="http://demose0967.azurewebsites.net/" data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdemose0967.azurewebsites.net%2F&amp;src=sdkpreparse">Share</a>
+            </div>
+        </div>
+        <!-- end button share-->
+        <!-- comment-->
+        <div class="col-md-12">
+            <div class="fb-comments" data-href="http://demose0967.azurewebsites.net/" data-numposts="5"></div>
+        </div>
+        <!-- end comment-->
+    </div>
+    <div id="fb-root"></div>
+    <!-- scripts jS sdk facebook-->
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=1797425837167451";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- end scripts jS sdk facebook -->
+</body>
+</html>

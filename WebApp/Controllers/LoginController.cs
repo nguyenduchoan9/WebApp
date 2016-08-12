@@ -59,6 +59,16 @@ namespace WebApp.Controllers
                         massage = ""
                     });
                 }
+                else if (Constant.BuyerRole == user.role)
+                {
+                    SessionUser session = new SessionUser(user.id, user.username, user.role);
+                    SessionStorage.SetSessionUser(session);
+                    return Json(new
+                    {
+                        role = user.role,
+                        massage = ""
+                    });
+                }
 
                 /*ViewBag.ErrMassage = Constant.ErrMassageAccoutBan;*/
                 return Json(new

@@ -2,15 +2,15 @@
     var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
     if ("Admin".Equals(controller) || "Product".Equals(controller) 
         || "Account".Equals(controller) || "Order".Equals(controller)
-        || "OrderDetail".Equals(controller))
+        || "OrderDetail".Equals(controller) || "HpAddProduct".Equals(controller))
     {
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
     }
-    else if("Login".Equals(controller) || "Register".Equals(controller) || "ForgotPassword".Equals(controller))
+    else if("Login".Equals(controller) || "Register".Equals(controller) || "ForgotPassword".Equals(controller) || "Facebook".Equals(controller))
     {
         Layout = "~/Views/Shared/_LoginLayout.cshtml";
     }
-    else if ("HomePage".Equals(controller))
+    else if ("HomePage".Equals(controller) )
     {
         Layout = "~/Views/Shared/_HomePageLayout.cshtml";
     }

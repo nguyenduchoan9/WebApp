@@ -9187,7 +9187,7 @@ p.creating {
 }
 
 .invalid-input-register {
-    margin: 0.5em 0 0 0;
+    margin: 0.5em 0 0 1em;
     position: relative;
     float: left;
     width: 100%;
@@ -9238,4 +9238,18 @@ p.creating {
     width: 100%;
     font-size: 1em;
     padding: 0.5em;
+}
+
+.alert-msg-delete {
+    position: fixed;
+    top: 4em;
+    right: 1em;
+    opacity: 0;
+}
+
+.alert-msg-update {
+    position: fixed;
+    top: 4em;
+    right: 1em;
+    opacity: 0;
 }

@@ -94,5 +94,27 @@ namespace WebApp.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public JsonResult CheckSessionLogin()
+        {
+            var status = false;
+
+            var session = SessionStorage.GetSessionUser();
+
+            status = session != null ? true : false;
+
+            return Json(new
+            {
+                status = status
+            });
+        }
+
+        public ActionResult LogOut()
+        {
+            SessionStorage.SetSessionUser(null);
+
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

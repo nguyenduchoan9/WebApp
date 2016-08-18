@@ -1,0 +1,207 @@
+﻿@model IEnumerable<WebApp.CommonClass.CartItemDetail>
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+
+@section Styles{
+    @Styles.Render("~/Content/HomepageCss")
+    <link rel="stylesheet" type="text/css" href="/Content/Customer/css/jquery-ui.css">
+   
+}
+@section Scripts{
+    @Scripts.Render("~/Content/HomepageJs")
+}
+
+@section JsFooter{
+    <!--script-->
+    <!--//script -->
+    <!---->
+    <script type="text/javascript" src="/Content/Customer/js/jquery-ui.min.js"></script>
+
+    <script type='text/javascript'>
+        //<![CDATA[
+        $(window).load(function () {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 100000,
+                values: [500, 100000],
+                slide: function (event, ui) {
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+        });//]]>
+    </script>
+    <!---->
+
+    <script type="text/javascript">
+        $(document)
+            .ready(function () {
+                $('#btnUpdateCart')
+                    .on('click',
+                        function (e) {
+                            e.preventDefault();
+                            var listProduct = $('.txtQuantity');
+                            var cartList = [];
+                            $.each(listProduct,
+                                function (i, item) {
+                                    cartList.push({
+                                        Quantity: $(item).val(),
+                                        IdProduct: $(item).attr("data-id")
+                                    });
+                                });
+
+                            $.ajax({
+                                url: "/ShoppingCart/UpdateCart",
+                                dataType: "json",
+                                type: "POST",
+                                data: {
+                                    cartModel: JSON.stringify(cartList)
+                                },
+                                success: function (response) {
+                                    var status = response.status;
+                                    if (true == status) {
+                                        window.location.href = "/ShoppingCart/ShowShoppingCartOut";
+                                    }
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    alert("Add item error !!");
+                                }
+                            });
+                        });
+                $('#btnCheckOut')
+                    .on('click',
+                        function (e) {
+                            e.preventDefault();
+
+                            $.ajax({
+                                url: "/Login/CheckSessionLogin",
+                                type: "POST",
+                                datatype: "json",
+                                success: function (response) {
+                                    var status = response.status;
+                                    if (true == status) {
+                                        window.location.href = '/CheckOut/Index';
+                                    } else {
+                                        $('.alert-msg-login-to-checkout').animate({ opacity: '1' }, 2000).animate({ opacity: '1' }, 1000).animate({ opacity: '0' }, 2000);
+                                    }
+                                }
+                            });
+                        });
+                $('.btn-remove-product')
+                    .on('click',
+                        function (e) {
+                            e.preventDefault();
+                            var btn = $(this);
+                            var id = btn.attr('data-id');
+
+                            $.ajax({
+                                url: "/ShoppingCart/RemoveProductFromShoppingCart",
+                                type: "POST",
+                                datatype: "JSON",
+                                data: {
+                                    id: id
+                                }, success: function (response) {
+                                    var status = response.status;
+                                    if (true == status) {
+                                        $('#cartItem-' + id).remove();
+                                        $('.alert-msg-remove-cart-item').animate({ opacity: '1' }, 2000).animate({ opacity: '1' }, 1000).animate({ opacity: '0' }, 2000);
+                                    }
+                                }
+                            });
+                        });
+            });
+    </script>
+
+}
+<div class="alert-msg-login-to-checkout">
+    <div class="alert alert-success text-center" role="alert">
+        <strong>You must login to checkout!!</strong>
+    </div>
+</div>
+<!--cart-items-->
+<div class="cart-items">
+    <div class="container">
+        <h2>My Shopping Cart</h2>
+        @if (null != Model)
+        {
+            foreach (var cartITemDetail in Model)
+            {
+                var price = (Decimal)(cartITemDetail.Product.price - cartITemDetail.Product.price * cartITemDetail.Product.discount / 100);
+                var total = (Decimal)(price * cartITemDetail.Quantity);
+                <div class="cart-header" id="cartItem-@cartITemDetail.Product.id">
+                    <div>
+                        <a href="#" class="delete-cart-item close1 btn-remove-product" data-id='@cartITemDetail.Product.id'></a>
+                    </div>
+                    <div class="cart-sec simpleCart_shelfItem">
+                        <div class="cart-item cyc">
+                            <img src="@cartITemDetail.Product.image" class="img-responsive" alt="">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3 class="name-cart-item">@cartITemDetail.Product.name<span>Price Sale: @(price.ToString("N0") + " VND")</span></h3>
+                            <ul class="qty">
+                                <li>
+                                    <p>Price: @(cartITemDetail.Product.price.ToString("N0") + " VND")</p>
+                                </li>
+                                <li>
+                                    <p>Discount: @(cartITemDetail.Product.discount.ToString() + " %")</p>
+                                </li>
+                            </ul>
+                            <div class="delivery">
+                                <p>
+                                    <strong>Quantity:</strong> <input type="text" class="input-quantity-cart-item text-center txtQuantity"
+                                                                      value="@cartITemDetail.Quantity" id="quantity-@cartITemDetail.Product.id"
+                                                                      data-id="@cartITemDetail.Product.id" />
+                                </p>
+                                <span>Total: @(total.ToString("N0") + " VND") </span>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a href="/ShoppingCart/ResetCart" class="btn btn-primary btn-cart">Delete All Cart</a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="#" class="btn btn-primary btn-cart" id="btnUpdateCart">Update Cart</a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="#" class="btn btn-primary btn-cart" id="btnCheckOut">Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 1em;">
+                <a href="/HpShowProduct/Index" class="text text-primary"><i class="fa fa-arrow-left"></i>&nbsp; Continue to Shopping</a>
+            </div>
+        }
+        else
+        {
+            <h3>Empty Cart</h3>
+            <div style="margin-top: 1em;">
+                <a href="/HpShowProduct/Index" class="text text-primary"><i class="fa fa-arrow-left"></i>&nbsp Go to Shopping</a>
+            </div>
+            
+        }
+
+
+
+    </div>
+
+</div>
+<!--//checkout-->
+<div class="alert-msg-remove-cart-item">
+    <div class="alert alert-success" role="alert">
+        <strong>The product has been removed from cart!!!!</strong>
+    </div>
+</div>

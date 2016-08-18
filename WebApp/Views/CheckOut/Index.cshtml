@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewBag.Title = "Checkout";
+}
+
+
+@section Styles{
+    @Styles.Render("~/Content/HomepageCss")
+    <link rel="stylesheet" type="text/css" href="/Content/Customer/css/jquery-ui.css">
+    <link href="/Content/DatePicker/css/datepicker.css" rel="stylesheet" />
+
+}
+@section Scripts{
+    @Scripts.Render("~/Content/HomepageJs")
+}
+
+@section JsFooter{
+    <!--script-->
+    <!--//script -->
+    <!---->
+
+    <script type="text/javascript" src="/Content/Customer/js/jquery-ui.min.js"></script>
+    <script src="/Content/DatePicker/js/bootstrap-datepicker.js"></script>
+
+    <script type='text/javascript'>
+        //<![CDATA[
+        $(window)
+            .load(function () {
+                $("#slider-range")
+                    .slider({
+                        range: true,
+                        min: 0,
+                        max: 100000,
+                        values: [500, 100000],
+                        slide: function (event, ui) {
+                            $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                        }
+                    });
+                $("#amount")
+                    .val("$" +
+                        $("#slider-range").slider("values", 0) +
+                        " - $" +
+                        $("#slider-range").slider("values", 1));
+
+            }); //]]>
+    </script>
+    <!---->
+
+    <script type="text/javascript">
+        $(document)
+            .ready(function () {
+                $('#deliveryDate')
+                    .datepicker({
+                        format: 'dd-mm-yyyy',
+                        onSelect: function (dateText, inst) {
+                            $('#dp1').val(dateText);
+                        }
+                    });
+                $('#btnSubmit')
+                    .off('click')
+                    .on('click',
+                        function (e) {
+                            var deliveryDate = $('#deliveryDate').val();
+                            var deliveryAddress = $('#deliveryAddress').val();
+
+                            var err = 0;
+
+                            if (!deliveryDate || /^\s*$/.test(deliveryDate)) {
+                                err = -1;
+                                $('#deliveryDate').parent().addClass('has-error');
+                            } else {
+                                $('#deliveryDate').parent().removeClass('has-error');
+                            }
+
+                            if (!deliveryAddress || /^\s*$/.test(deliveryAddress)) {
+                                err = -1;
+                                $('#deliveryAddress').parent().addClass('has-error');
+                            } else {
+                                $('#deliveryAddress').parent().removeClass('has-error');
+                            }
+
+                            if (-1 == err) {
+                                $('#invalid-information').removeClass('hidden');
+                                $("html, body").animate({ scrollTop: 0 }, "slow");
+                            } else {
+                                $('#invalid-information').addClass('hidden');
+
+                                $.ajax({
+                                    url: "/CheckOut/Order",
+                                    datatype: "JSON",
+                                    type: "POST",
+                                    data: {
+                                        deliveryDate: deliveryDate,
+                                        deliveryAddress: deliveryAddress
+                                    },success: function(response) {
+                                        var status = response.status;
+                                        if (true == status) {
+                                            window.location.href = "/CheckOut/OrderSuccess";
+                                        }
+                                    }
+                                });
+                            }
+                        });
+            });
+    </script>
+
+}
+
+@{
+    var total = (Decimal)ViewBag.TotalPay;
+    var username = (string)ViewBag.Username;
+}
+
+
+<div class="register">
+
+    <form role="form" class="form-horizontal" id="myform">
+        <div class="register-top-grid">
+            <h3>Check Out</h3>
+            <div class="text-center text-danger hidden" id="invalid-information" style="margin: 0 0 2em 0; font-size: 130%">
+                Please fill the blank !!
+            </div>
+            <div class="input">
+                <span><strong>Customer</strong></span>
+
+                <input type="text" name="username" id="username" class="form-control1" value="@username" disabled>
+
+                <div class="clearfix"> </div>
+            </div>
+
+            <div class="input">
+                <span>Delivery Date</span>
+
+                <input id="deliveryDate" name="deliveryDate" class="form-control1 span" type="text" placeholder="Delivery Date" />
+
+                <div class="clearfix"> </div>
+            </div>
+
+            <div class="input">
+                <span>Delivery Address</span>
+
+                <input type="text" name="deliveryAddress" id="deliveryAddress" class="form-control1 " placeholder="Delivery Address">
+
+                <div class="clearfix"> </div>
+            </div>
+
+            <div class="input">
+                <span>Total </span>
+
+                <input type="text" name="total" id="total" class="form-control1 disabled" value="@(total.ToString("N0") + " VND")" disabled>
+
+                <div class="clearfix"> </div>
+            </div>
+
+            <div class="input">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <a id="btnSubmit" class="btn btn-success" style="width: 100%" type="submit">Submit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!--//checkout-->
+<div class="alert-msg-remove-cart-item">
+    <div class="alert alert-success" role="alert">
+        <strong>The product has been removed from cart!!!!</strong>
+    </div>
+</div>

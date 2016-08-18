@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Web;
 using WebApp.Common;
@@ -42,5 +44,42 @@ namespace WebApp.Models.DAO
 
             return list;
         }
+
+        public bool AddNewOrder(int idBuyer, DateTime deliveryDateTime, string deliveryAddress, Decimal total, IEnumerable<OrderDetail> listOrderDetail)
+        {
+            try
+            {
+                int maxOrderId = db.Orders.Max(x => x.id);
+                int orderId = maxOrderId + 1;
+
+                Order order = new Order();
+                order.id = orderId;
+                order.buyerId = idBuyer;
+                order.orderDate = DateTime.Now;
+                order.DeleveryDate = deliveryDateTime;
+                order.total = total;
+                order.DeliveryAddress = deliveryAddress;
+
+                db.Orders.Add(order);
+
+                foreach (var orderDetail in listOrderDetail)
+                {
+                    orderDetail.orderId = orderId;
+                    db.OrderDetails.Add(orderDetail);
+                }
+
+                db.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+            return true;
+        }
+
+       
     }
 }

@@ -12,20 +12,7 @@
     <!---//webfonts--->
     <!-- Meters graphs -->
     <!-- Placed js at the end of the document so the pages load faster -->
-    <style>
-        .alert-msg-delete {
-            position: fixed;
-            top: 4em;
-            right: 1em;
-            opacity: 0;
-        }
-        .alert-msg-update {
-            position: fixed;
-            top: 4em;
-            right: 1em;
-            opacity: 0;
-        }
-    </style>
+    
 }
 
 @section Scripts{
@@ -54,7 +41,7 @@
                         responsive: true
                     });
 
-                
+
                 $('#tblAccount')
                     .on('click',
                         '.btn-delete-product',
@@ -120,19 +107,19 @@
     </script>
     <script type="text/javascript">
         $(document)
-            .ready(function() {
+            .ready(function () {
                 var url = window.URL || window.webkitURL;
                 $("#f_UploadImage")
                     .on('change',
-                        function() {
+                        function () {
 
                             var file, img;
                             if ((file = this.files[0])) {
                                 img = new Image();
-                                img.onload = function() {
+                                img.onload = function () {
                                     sendFile(file);
                                 };
-                                img.onerror = function() {
+                                img.onerror = function () {
                                     alert("Not a valid file:" + file.type);
                                 };
                                 img.src = url.createObjectURL(file);
@@ -141,7 +128,7 @@
                 $('#myform')
                     .off('click')
                     .on('submit',
-                        function(e) {
+                        function (e) {
                             e.preventDefault();
                             var id = $('#productName').attr("data-id");;
                             var productName = $('#productName').val();
@@ -263,7 +250,7 @@
                 type: 'post',
                 url: '/Common/FileUploader.ashx',
                 data: formData,
-                success: function(status) {
+                success: function (status) {
                     if (status != 'error') {
                         var myPath = "/Content/Customer/images/" + status;
                         $("#myUploadedImg").attr("src", myPath);
@@ -272,7 +259,7 @@
                 },
                 processData: false,
                 contentType: false,
-                error: function() {
+                error: function () {
                     alert("Whoops something went wrong!");
                 }
             });
@@ -287,22 +274,32 @@
 <div id="page-wrapper">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3>Account Manage</h3>
+            <h3>
+                Product Management
+
+            </h3>
+
         </div>
         <div class="panel-body">
             <div class="dataTable_wrapper">
                 <div class="responsive-table">
+                    <div class="div-add-product">
+                        <a class="btn btn-primary text-right add-new-product"
+                           style="background-color: #1C37A3 !important; font-weight: 700; border-color: #314DBD; border-radius: 0px;"
+                           href="/HPAddProduct/Index"><i class="fa fa-plus"></i>&nbsp; Add New Product</a>
+                    </div>
+
+
                     <table id="tblAccount" class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th class="info">IMAGE</th>
-                                <th class="info">PRODUCT NAME</th>
-                                <th class="info">PRICE</th>
-                                <th class="info">DISCOUNT</th>
-                                <th class="info">DESCRIPTION</th>
-                                <th class="info">STATUS</th>
-                                <th class="info"></th>
-                                <th class="info"></th>
+                                <th class="text-center">IMAGE</th>
+                                <th class="text-center">PRODUCT NAME</th>
+                                <th class="text-center">PRICE</th>
+                                <th class="text-center">DISCOUNT</th>
+                                <th class="text-center">DESCRIPTION</th>
+                                <th class=""></th>
+                                <th class=""></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -320,14 +317,18 @@
                                         <td id="price-@item.id" class="text-center">@(item.price.ToString("N0") + " VND")</td>
                                         <td id="discount-@item.id" class="text-center">@(item.discount.ToString() + "%")</td>
                                         <td id="description-@item.id" class="text-center">@item.description</td>
-                                        <td id="status-@item.id">@(item.status == 0 ? "Pending" : "Approved" )</td>
+                                        @* <td id="status-@item.id">@(item.status == 0 ? "Pending" : "Approved" )</td>*@
 
                                         <td>
-                                            <a href="#" class="btn btn-primary btn-block btn-update-product" data-id="@item.id">Update</a>
+                                            <a href="#" class="btn btn-primary btn-block btn-update-product"
+                                               style="background-color: #1C37A3 !important; font-weight: 700; border-color: #314DBD; border-radius: 0px;" 
+                                               data-id="@item.id">Update</a>
                                         </td>
 
                                         <td>
-                                            <a href="#" class="btn btn-warning btn-block btn-delete-product" data-id="@item.id">Delete</a>
+                                            <a href="#" class="btn btn-warning btn-block btn-delete-product"
+                                               style="background-color: #34914C !important; font-weight: 700; border-color: #3EAD5A; border-radius: 0px;"
+                                               data-id="@item.id">Delete</a>
                                         </td>
 
                                     </tr>
@@ -337,28 +338,31 @@
 
                         </tbody>
                     </table>
-                    <a class="btn btn-primary" href="/Account/Add">ADD</a>
-                    <a class="btn btn-primary" href="/Account/SendMail">Send Mail</a>
-                    <a class="btn btn-primary abcxyz" href="#">Send Mail</a>
-                    <script type="text/javascript">
-                        $(document)
-                            .ready(function () {
-                                $('.abcxyz').off('click').on('click', function (e) {
-                                    e.preventDefault();
-                                    $.ajax({
-                                        url: "/Product/Change",
-                                        dataType: "json",
-                                        type: "POST",
-                                        success: function (response) {
+                    @*<a class="btn btn-primary" href="/Account/Add">ADD</a>
+                        <a class="btn btn-primary" href="/Account/SendMail">Send Mail</a>
+                        <a class="btn btn-primary abcxyz" href="#">Send Mail</a>
+                        <script type="text/javascript">
+                            $(document)
+                                .ready(function() {
+                                    $('.abcxyz')
+                                        .off('click')
+                                        .on('click',
+                                            function(e) {
+                                                e.preventDefault();
+                                                $.ajax({
+                                                    url: "/Product/Change",
+                                                    dataType: "json",
+                                                    type: "POST",
+                                                    success: function(response) {
 
-                                        },
-                                        error: function (xhr, ajaxOptions, thrownError) {
-                                            alert("eeee");
-                                        }
-                                    });
+                                                    },
+                                                    error: function(xhr, ajaxOptions, thrownError) {
+                                                        alert("eeee");
+                                                    }
+                                                });
+                                            });
                                 });
-                            });
-                    </script>
+                        </script>*@
                 </div>
             </div>
         </div>
@@ -421,8 +425,10 @@
                     </div>
 
                     <div class="input">
-                        <div class="container-fluid">
-                            <button id="btnSubmit" class="btn btn-success" style="width: 50%; margin: auto" type="submit">Submit</button>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button id="btnSubmit" class="btn btn-success" style="width: 100% " type="submit">Submit</button>
+                            </div>
                         </div>
                     </div>
                 </div>

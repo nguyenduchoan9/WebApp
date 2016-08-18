@@ -1,0 +1,184 @@
+﻿@model WebApp.Models.Product
+@{
+    ViewBag.Title = "ViewDetailProduct";
+}
+@section Styles{
+    @Styles.Render("~/Content/HomepageCss")
+    <link rel="stylesheet" type="text/css" href="/Content/Customer/css/jquery-ui.css">
+
+}
+@section Scripts{
+    @Scripts.Render("~/Content/HomepageJs")
+}
+
+@section JsFooter{
+    <!--script-->
+    <script>
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+        $(document).ready(function () {
+            $(".tab1 .single-bottom").hide();
+            $(".tab2 .single-bottom").hide();
+            $(".tab3 .single-bottom").hide();
+            $(".tab4 .single-bottom").hide();
+            $(".tab5 .single-bottom").hide();
+
+            $(".tab1 ul")
+                .click(function() {
+                    $(".tab1 .single-bottom").slideToggle(300);
+                    $(".tab2 .single-bottom").hide();
+                    $(".tab3 .single-bottom").hide();
+                    $(".tab4 .single-bottom").hide();
+                    $(".tab5 .single-bottom").hide();
+                });
+            $(".tab2 ul")
+                .click(function() {
+                    $(".tab2 .single-bottom").slideToggle(300);
+                    $(".tab1 .single-bottom").hide();
+                    $(".tab3 .single-bottom").hide();
+                    $(".tab4 .single-bottom").hide();
+                    $(".tab5 .single-bottom").hide();
+                });
+            $(".tab3 ul")
+                .click(function() {
+                    $(".tab3 .single-bottom").slideToggle(300);
+                    $(".tab4 .single-bottom").hide();
+                    $(".tab5 .single-bottom").hide();
+                    $(".tab2 .single-bottom").hide();
+                    $(".tab1 .single-bottom").hide();
+                });
+            $(".tab4 ul")
+                .click(function() {
+                    $(".tab4 .single-bottom").slideToggle(300);
+                    $(".tab5 .single-bottom").hide();
+                    $(".tab3 .single-bottom").hide();
+                    $(".tab2 .single-bottom").hide();
+                    $(".tab1 .single-bottom").hide();
+                });
+            $(".tab5 ul")
+                .click(function() {
+                    $(".tab5 .single-bottom").slideToggle(300);
+                    $(".tab4 .single-bottom").hide();
+                    $(".tab3 .single-bottom").hide();
+                    $(".tab2 .single-bottom").hide();
+                    $(".tab1 .single-bottom").hide();
+                });
+        });
+    </script>
+    <!--//script -->
+    <!---->
+    <script type="text/javascript" src="/Content/Customer/js/jquery-ui.min.js"></script>
+
+    <script type='text/javascript'>
+        //<![CDATA[
+        $(window).load(function () {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 100000,
+                values: [500, 100000],
+                slide: function (event, ui) {
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+        });//]]>
+    </script>
+    <!---->
+
+    <script type="text/javascript">
+        $(document)
+            .ready(function() {
+                $('.btn-add-item-to-cart')
+                    .on('click',
+                        function(e) {
+                            e.preventDefault();
+                            var btn = $(this);
+                            var idProduct = btn.attr('data-id');
+                            var quantity = $('#txtQuantity').val();
+
+                            $.ajax({
+                                url: "/ShoppingCart/AddIemToCart",
+                                dataType: "json",
+                                type: "POST",
+                                data: {
+                                    idProduct: idProduct,
+                                    quantity : quantity
+                                },
+                                success: function(response) {
+                                    var status = response.status;
+                                    if (true == status) {
+                                        $('.alert-msg-add-item-cart').animate({ opacity: '1' }, 2000).animate({ opacity: '1' }, 1000).animate({ opacity: '0' }, 2000);
+                                    }
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    alert("Add item error !!");
+                                }
+                            });
+                        });
+            });
+    </script>
+
+}
+<div class="single">
+    <div class="container">
+        <div class="single-grids">
+            <div class="col-md-4 single-grid">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li data-thumb="@Model.image">
+                            <div class="thumb-image"> <img src="@Model.image" data-imagezoom="true" class="img-responsive">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 single-grid simpleCart_shelfItem">
+                <h3>@Model.name</h3>
+                <p>@Model.description</p>
+                <ul class="size">
+                    <h3>Price</h3>
+                    <li><a href="#">@(Model.price.ToString("N0") + " VND")</a></li>
+                </ul>
+                <ul class="size">
+                    <h3>Discount</h3>
+                    <li><a href="#">@(Model.discount.ToString() + " %")</a></li>
+                </ul>
+                <div class="galry">
+                    @{
+                        var salePrice = (Decimal) (Model.price - Model.price*Model.discount/100);
+                    }
+                    <div class="prices">
+                        <h5 class="item_price">@(salePrice.ToString("N0") + " VND")</h5>
+                    </div>
+                    <div class="rating">
+                        <h4>Sale Price</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <p class="qty"> Qty : </p><input min="1" type="number" id="txtQuantity" name="txtQuantity" value="1" class="form-control input-small">
+                <div class="btn_form">
+                    <a href="#" class="add-cart item_add btn-add-item-to-cart" data-id="@Model.id">ADD TO CART</a>
+                </div>
+            </div>
+            <div class="col-md-4 single-grid1">
+                <h2>Feature</h2>
+                <ul>
+                    <li><a href="#">Coming soon</a></li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<div class="alert-msg-add-item-cart">
+    <div class="alert alert-success" role="alert">
+        <strong>The product has been added to cart!!!!</strong>
+    </div>
+</div>
+

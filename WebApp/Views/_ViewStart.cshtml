@@ -2,7 +2,7 @@
     var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
     if ("Admin".Equals(controller) || "Product".Equals(controller) 
         || "Account".Equals(controller) || "Order".Equals(controller)
-        || "OrderDetail".Equals(controller) || "HpAddProduct".Equals(controller))
+        || "OrderDetail".Equals(controller) || "HpAddProduct".Equals(controller) || "HPAddProduct".Equals(controller))
     {
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
     }
@@ -10,7 +10,9 @@
     {
         Layout = "~/Views/Shared/_LoginLayout.cshtml";
     }
-    else if ("HomePage".Equals(controller) )
+    else if ("HomePage".Equals(controller) || "HpShowProduct".Equals(controller) 
+        || "ShoppingCart".Equals(controller) || "CheckOut".Equals(controller)
+        || "Searching".Equals(controller))
     {
         Layout = "~/Views/Shared/_HomePageLayout.cshtml";
     }

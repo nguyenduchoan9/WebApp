@@ -24,8 +24,10 @@ namespace WebApp.Models
         public int id { get; set; }
         public int buyerId { get; set; }
         public System.DateTime orderDate { get; set; }
-        public Nullable<System.DateTime> deliveryDate { get; set; }
         public decimal total { get; set; }
+        public Nullable<bool> statusOfOrder { get; set; }
+        public string DeliveryAddress { get; set; }
+        public System.DateTime DeleveryDate { get; set; }
     
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

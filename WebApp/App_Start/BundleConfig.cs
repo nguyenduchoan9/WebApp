@@ -45,12 +45,16 @@ namespace WebApp
             // start Homepage css and js
             bundles.Add(new StyleBundle("~/Content/HomepageCss").Include(
                      "~/Content/Customer/css/bootstrap.css",
-                     "~/Content/Customer/css/style.css"));
+                     "~/Content/Customer/css/style.css",
+                     "~/Content/Customer/css/font-awesome.css"));
 
             bundles.Add(new ScriptBundle("~/Content/HomepageJs").Include(
                     "~/Content/Customer/js/jquery.min.js",
                     "~/Content/Customer/js/bootstrap-3.1.1.min.js",
                     "~/Content/Customer/js/simpleCart.min.js"));
+
+            bundles.Add(new ScriptBundle("~/Content/HomepageJsFooter").Include(
+                    "~/Content/Customer/js/CustomizeJsHomepage.js"));
             // end Homepage css and js
             /*<!-- //Custom Theme files -->
                 <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">

@@ -58,7 +58,8 @@ namespace WebApp.Common
         /*OrderDetailDao : string SellerName*/
         public static string Seller = "Seller";
 
-/*Massage Error Username Has Existed*/
+        /*Session Cart*/
+        public static string SessionCart = "SESSION_CART";
 
     }
 }

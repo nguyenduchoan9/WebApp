@@ -5,7 +5,7 @@
 
 @section Styles{
     @Styles.Render("~/Content/AdminCss")
-
+    
     <!----webfonts--->
     <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
     <!---//webfonts--->
@@ -75,6 +75,7 @@
     <script src="~/Content/Admin/js/bootstrap.min.js"></script>
 }
 
+
 <div id="page-wrapper" class="sign-in-wrapper">
     <div class="graphs">
         <div class="sign-in-form">
@@ -86,13 +87,13 @@
                 <form id="submit-form" action="/Login/CheckLoginAccount">
                     <div class="log-input">
                         <div class="log-input">
-                            <input type="text" name="username" id="username" class="user" placeholder="Username" />
+                            <input type="text" name="username" id="username" class="user" placeholder="Username"/>
                         </div>
                         <div class="clearfix"> </div>
                     </div>
                     <div class="log-input">
                         <div class="log-input">
-                            <input type="password" name="password" id="password" class="lock password" placeholder="Password" />
+                            <input type="password" name="password" id="password" class="lock password" placeholder="Password"/>
                         </div>
                         <div class="clearfix"> </div>
                     </div>
@@ -111,3 +112,5 @@
         </div>
     </div>
 </div>
+
+@*<a href="/CheckOut/Customer">Seller</a>*@

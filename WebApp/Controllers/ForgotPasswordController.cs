@@ -20,7 +20,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                SendMail("hoangndse61505@fpt.edu.vn");
+                SendMail(email);
             }
             catch (Exception)
             {
@@ -34,7 +34,7 @@ namespace WebApp.Controllers
             var fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"].ToString();
             var toEmailAddress = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
 
-            string content = System.IO.File.ReadAllText(Server.MapPath("~/Common/EmailTemplate/EmailSendPassword.html"));
+            string content = System.IO.File.ReadAllText(Server.MapPath("/Common/EmailTemplate/EmailSendPassword.html"));
             
             content = content.Replace("{{FromEmailAddress}}", fromEmailAddress);
             content = content.Replace("{{ToEmailAddress}}", toEmail);
@@ -42,6 +42,11 @@ namespace WebApp.Controllers
 
             /*new MailHelper().SendMail(toEmailAddress, "This is demo mail", content);*/
             new MailHelper().SendMail(toEmail, "Get Your Password", content);
+        }
+
+        public ActionResult SendMailErr()
+        {
+            return View();
         }
     }
 }

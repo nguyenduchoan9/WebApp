@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using WebApp.CommonClass;
 
 namespace WebApp.Models.DAO
 {
@@ -137,6 +138,48 @@ namespace WebApp.Models.DAO
                 db.Entry(product).State = EntityState.Modified;
             }
             db.SaveChanges();
+        }
+
+
+        public IEnumerable<Product> ListProductHomePage()
+        {
+            return db.Products.Where(x => x.status != 1).ToList();
+        }
+
+        public IEnumerable<CartItemDetail> ListCheckout(List<CartItem> listCartItem)
+        {
+            if (null == listCartItem)
+            {
+                return null;
+            }
+
+            var listCartItemDetail = new List<CartItemDetail>();
+
+            var listProduct = db.Products.ToList();
+            foreach (var cartItem in listCartItem)
+            {
+                var product = listProduct.SingleOrDefault(x => x.id == cartItem.IdProduct);
+
+                var cartItemDetail = new CartItemDetail(product, cartItem.Quantity);
+
+                listCartItemDetail.Add(cartItemDetail);
+            }
+
+            return listCartItemDetail;
+        }
+
+        public IEnumerable<Product> GetProductBySearchKey(string txtSearchKey)
+        {
+            if (!string.IsNullOrWhiteSpace(txtSearchKey))
+            {
+                var listProduct = from product in db.Products
+                    where product.name.Contains(txtSearchKey)
+                    select product;
+
+                return listProduct;
+            }
+
+            return null;
         }
     }
 }

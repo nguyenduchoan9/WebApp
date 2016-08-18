@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "OrderSuccess";
+}
+
+@section Styles{
+    @Styles.Render("~/Content/HomepageCss")
+    <link rel="stylesheet" type="text/css" href="/Content/Customer/css/jquery-ui.css">
+    <link href="/Content/DatePicker/css/datepicker.css" rel="stylesheet" />
+
+}
+@section Scripts{
+    @Scripts.Render("~/Content/HomepageJs")
+}
+
+@section JsFooter{
+    <!--script-->
+    <!--//script -->
+    <!---->
+
+    <script type="text/javascript" src="/Content/Customer/js/jquery-ui.min.js"></script>
+    <script src="/Content/DatePicker/js/bootstrap-datepicker.js"></script>
+
+    <script type='text/javascript'>
+        //<![CDATA[
+        $(window)
+            .load(function () {
+                $("#slider-range")
+                    .slider({
+                        range: true,
+                        min: 0,
+                        max: 100000,
+                        values: [500, 100000],
+                        slide: function (event, ui) {
+                            $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                        }
+                    });
+                $("#amount")
+                    .val("$" +
+                        $("#slider-range").slider("values", 0) +
+                        " - $" +
+                        $("#slider-range").slider("values", 1));
+
+            }); //]]>
+    </script>
+    <!---->
+
+    <script type="text/javascript">
+        $(document)
+            .ready(function () {
+                $('#deliveryDate')
+                    .datepicker({
+                        format: 'dd-mm-yyyy',
+                        onSelect: function (dateText, inst) {
+                            $('#dp1').val(dateText);
+                        }
+                    });
+                $('#btnSubmit')
+                    .off('click')
+                    .on('click',
+                        function (e) {
+                            var deliveryDate = $('#deliveryDate').val();
+                            var deliveryAddress = $('#deliveryAddress').val();
+
+                            var err = 0;
+
+                            if (!deliveryDate || /^\s*$/.test(deliveryDate)) {
+                                err = -1;
+                                $('#deliveryDate').parent().addClass('has-error');
+                            } else {
+                                $('#deliveryDate').parent().removeClass('has-error');
+                            }
+
+                            if (!deliveryAddress || /^\s*$/.test(deliveryAddress)) {
+                                err = -1;
+                                $('#deliveryAddress').parent().addClass('has-error');
+                            } else {
+                                $('#deliveryAddress').parent().removeClass('has-error');
+                            }
+
+                            if (-1 == err) {
+                                $('#invalid-information').removeClass('hidden');
+                                $("html, body").animate({ scrollTop: 0 }, "slow");
+                            } else {
+                                $('#invalid-information').addClass('hidden');
+
+                                $.ajax({
+                                    url: "/CheckOut/Order",
+                                    datatype: "JSON",
+                                    type: "POST",
+                                    data: {
+                                        deliveryDate: deliveryDate,
+                                        deliveryAddress: deliveryAddress
+                                    }, success: function (response) {
+                                        var status = response.status;
+                                        if (true == status) {
+                                            window.location.href = "/CheckOut/OrderSuccess";
+                                        }
+                                    }
+                                });
+                            }
+                        });
+            });
+    </script>
+
+}
+
+<div class="cart-items">
+    <div class="container">
+        <h2>Order Succesfully !!!</h2>
+        <a href="/HpShowProduct/Index" class="text text-primary"><i class="fa fa-arrow-left"></i>&nbsp Continued to Shopping</a>
+    </div>
+</div>
+

@@ -5,6 +5,60 @@
     Layout = null;
 }
 
-<h2>BanAccount</h2>
-<p><b>@Constant.ErrMassageAccoutBan</b></p>
+@{
+    ViewBag.Title = "RegisterSuccess";
+}
+@section Styles{
+    @Styles.Render("~/Content/AdminCss")
+
+    <link href="~/Content/DatePicker/css/datepicker.css" rel="stylesheet" />
+    <!----webfonts--->
+    <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!---//webfonts--->
+    <!-- Meters graphs -->
+    <!-- Placed js at the end of the document so the pages load faster -->
+
+}
+
+@section Scripts{
+
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <!-- chart -->
+    <script src="~/Content/Admin/js/Chart.js"></script>
+    <!-- //chart -->
+    <script src="~/Content/Admin/js/wow.min.js"></script>
+
+    <!--//end-animate-->
+    <script src="~/Content/Admin/js/jquery-1.10.2.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script type="text/javascript" charset="utf8" src="~/Scripts/media/js/jquery.dataTables.js"></script>
+
+}
+
+@section JsFooter{
+
+    <script src="~/Content/DatePicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
+    <script src="~/Content/Admin/js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/Admin/js/bootstrap.min.js"></script>
+}
+<div id="page-wrapper" class="sign-in-wrapper">
+    <div class="graphs">
+        <div class="sign-up">
+            <div class="panel-body panel-body-inputin">
+                <h2 class="text text-success text-center">@Constant.ErrMassageAccoutBan</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-offset-3">
+                    <a href="/Login/Index" class="text text-primary"><i class="fa fa-arrow-right"></i> Go to Login page </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 

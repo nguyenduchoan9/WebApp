@@ -1,8 +1,7 @@
 ﻿
 @{
-    ViewBag.Title = "AddProductSuccessPage";
+    ViewBag.Title = "NoPermission";
 }
-
 @section Styles{
     @Styles.Render("~/Content/AdminCss")
 
@@ -31,11 +30,19 @@
 }
 
 @section JsFooter{
-    
-<script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
-<script src="~/Content/Admin/js/scripts.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="~/Content/Admin/js/bootstrap.min.js"></script>
+
+    <script src="~/Content/Admin/js/jquery.nicescroll.js"></script>
+    <script src="~/Content/Admin/js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/Admin/js/bootstrap.min.js"></script>
 }
-<h2>AddProductSuccessPage</h2>
+<div id="page-wrapper">
+    <div class="alert alert-success">
+        <strong>New Product </strong>
+        has been added!!
+    </div>
+
+</div>
+
+
 

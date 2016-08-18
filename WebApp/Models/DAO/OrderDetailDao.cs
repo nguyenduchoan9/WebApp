@@ -54,6 +54,10 @@ namespace WebApp.Models.DAO
             return container;
         }
 
-        
+        public int GetMaxIdOrderDatail()
+        {
+            return db.OrderDetails.Max(x => x.id);
+        }
+
     }
 }

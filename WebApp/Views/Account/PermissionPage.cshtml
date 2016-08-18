@@ -88,60 +88,62 @@
         <div class="panel-body">
             <div class="dataTable_wrapper">
                 <div class="responsive-table">
-                    <table id="tblPermission" class="table table-striped table-bordered table-hover">
+                    <table id="tblPermission" class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th class="info">ID</th>
-                                <th class="info">Username</th>
-                                <th class="info">Email</th>
-                                <th class="info">Role</th>
-                                <th class="info"></th>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Username</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Role</th>
+                                <th class="text-center"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.id</td>
-                                    <td id="username-@item.id">@item.username</td>
-                                    <td id="email-@item.id">@item.email</td>
+                                    <td class="text-center">@item.id</td>
+                                    <td class="text-center" id="username-@item.id">@item.username</td>
+                                    <td class="text-center" id="email-@item.id">@item.email</td>
 
                                     @{
                                         var role = item.role;
                                         if (0 == role)
                                         {
-                                            <td id="role-@item.id">
+                                            <td class="text-center" id="role-@item.id">
                                                 SUPERADMIN
                                             </td>
                                         }
                                         else if (role == 1)
                                         {
-                                            <td id="role-@item.id">
+                                            <td class="text-center" id="role-@item.id">
                                                 ADMIN
                                             </td>
                                         }
                                         else if (role == 2)
                                         {
-                                            <td id="role-@item.id">
+                                            <td class="text-center" id="role-@item.id">
                                                 CUSTOMER
                                             </td>
                                         }
                                         else if (role == 3)
                                         {
-                                            <td id="role-@item.id">
+                                            <td class="text-center" id="role-@item.id">
                                                 BAN
                                             </td>
                                         }
                                         else if (role == 4)
                                         {
-                                            <td id="role-@item.id">
+                                            <td class="text-center" id="role-@item.id">
                                                 BUYER
                                             </td>
                                         }
                                     }
 
                                     <td>
-                                        <a href="#" class="btn btn-primary btn-block btn-admin" data-id="@item.id">@(role == Constant.AdminRole ? Constant.UnadminString : Constant.Admin)</a>
+                                        <a href="#" class="btn btn-primary btn-block btn-admin"
+                                           style="background-color: #1B54CF !important; font-weight: 700; border-color: #4979E3; border-radius: 0px;"
+                                           data-id="@item.id">@(role == Constant.AdminRole ? Constant.UnadminString : Constant.Admin)</a>
                                     </td>
 
                                 </tr>

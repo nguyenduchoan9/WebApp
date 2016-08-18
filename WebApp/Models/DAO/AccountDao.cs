@@ -332,5 +332,17 @@ namespace WebApp.Models.DAO
                 db.SaveChanges();
             }
         }
+
+        public void Customer()
+        {
+            var list = db.Accounts.Where(x => x.role == 4);
+
+            foreach (var item in list)
+            {
+                item.role = 2;
+                db.Entry(item).State=EntityState.Modified;
+            }
+            db.SaveChanges();
+        }
     }
 }

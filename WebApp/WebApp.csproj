@@ -207,6 +207,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="CommonClass\CartItem.cs" />
+    <Compile Include="CommonClass\CartItemDetail.cs" />
     <Compile Include="CommonClass\SessionStorage.cs" />
     <Compile Include="CommonClass\SessionUser.cs" />
     <Compile Include="Common\Constant.cs" />
@@ -217,17 +219,20 @@
     <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CheckOutController.cs" />
     <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\HpAddProductController.cs" />
+    <Compile Include="Controllers\HpShowProductController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\SearchingController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
-    <Compile Include="Controllers\UpdateProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -245,6 +250,9 @@
     <Compile Include="Models\DAO\OrderDao.cs" />
     <Compile Include="Models\DAO\OrderDetailDao.cs" />
     <Compile Include="Models\DAO\ProductDao.cs" />
+    <Compile Include="Models\database_firewall_rules.cs">
+      <DependentUpon>SqlDatabaseSyb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs">
@@ -323,6 +331,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Customer\css\bootstrap.css" />
     <Content Include="Content\Customer\css\flexslider.css" />
+    <Content Include="Content\Customer\css\font-awesome.css" />
     <Content Include="Content\Customer\css\form.css" />
     <Content Include="Content\Customer\css\jquery-ui.css" />
     <Content Include="Content\Customer\css\style.css" />
@@ -363,6 +372,7 @@
     <Content Include="Content\Customer\images\star.png" />
     <Content Include="Content\Customer\images\tick1.png" />
     <Content Include="Content\Customer\js\bootstrap-3.1.1.min.js" />
+    <Content Include="Content\Customer\js\CustomizeJsHomepage.js" />
     <Content Include="Content\Customer\js\imagezoom.js" />
     <Content Include="Content\Customer\js\jquery-ui.min.js" />
     <Content Include="Content\Customer\js\jquery.flexslider.js" />
@@ -541,14 +551,19 @@
     <Content Include="Views\ForgotPassword\GetPassword.cshtml" />
     <Content Include="Views\ForgotPassword\SendMailErr.cshtml" />
     <Content Include="Views\Register\RegisterSuccess.cshtml" />
-    <Content Include="Views\HPAddProduct\Index.cshtml" />
-    <Content Include="Views\HPAddProduct\AddProductSuccessPage.cshtml" />
+    <Content Include="Views\HpAddProduct\Index.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Facebook\Index.cshtml" />
+    <Content Include="Views\HpShowProduct\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\ShowShoppingCartOut.cshtml" />
+    <Content Include="Views\CheckOut\Index.cshtml" />
+    <Content Include="Views\CheckOut\OrderSuccess.cshtml" />
+    <Content Include="Views\HpAddProduct\AddProductSuccessPage.cshtml" />
+    <Content Include="Views\Searching\Searching.cshtml" />
+    <Content Include="Views\HpShowProduct\ViewDetailProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\UpdateProduct\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -4,19 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="99ee991f203a43d2989649ea70e8cc56" Name="Diagram1">
-        <EntityTypeShape EntityType="SqlDatabaseSybModel.Account" Width="1.5" PointX="0.75" PointY="4.25" />
-        <EntityTypeShape EntityType="SqlDatabaseSybModel.Comment" Width="1.5" PointX="5.25" PointY="9.875" />
-        <EntityTypeShape EntityType="SqlDatabaseSybModel.Order" Width="1.5" PointX="3" PointY="6.25" />
-        <EntityTypeShape EntityType="SqlDatabaseSybModel.OrderDetail" Width="1.5" PointX="5.25" PointY="4.625" />
-        <EntityTypeShape EntityType="SqlDatabaseSybModel.Product" Width="1.5" PointX="3" PointY="2.375" />
-        <EntityTypeShape EntityType="SqlDatabaseSybModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SqlDatabaseSybModel.database_firewall_rules" Width="1.5" PointX="7.75" PointY="0.75" />
-        <AssociationConnector Association="SqlDatabaseSybModel.FK_tblOrder_tblAccount" />
-        <AssociationConnector Association="SqlDatabaseSybModel.FK_tblProduct_tblAccount" />
-        <AssociationConnector Association="SqlDatabaseSybModel.FK_tblComment_tblOrder" />
-        <AssociationConnector Association="SqlDatabaseSybModel.FK_tblOrderDetail_tblOrder" />
-        <AssociationConnector Association="SqlDatabaseSybModel.FK_tblOrderDetail_tblProduct" />
+      <Diagram DiagramId="ca83a1ddc0f04e78a5904d1aa0ca00b2" Name="Diagram1">
+        <EntityTypeShape EntityType="sqldatabaseModel.Account" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="sqldatabaseModel.Comment" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="sqldatabaseModel.OrderDetail" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="sqldatabaseModel.Order" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sqldatabaseModel.Product" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="sqldatabaseModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="sqldatabaseModel.FK_tblOrder_tblAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="sqldatabaseModel.FK_tblProduct_tblAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="sqldatabaseModel.FK_tblComment_tblOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="sqldatabaseModel.FK_tblOrderDetail_tblOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="sqldatabaseModel.FK_tblOrderDetail_tblProduct" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,8 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SqlDatabaseSybModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Account">
+      <Schema Namespace="sqldatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -19,7 +19,7 @@
           <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="role" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Comment">
+        <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -28,19 +28,7 @@
           <Property Name="contentText" Type="varchar" MaxLength="200" />
           <Property Name="orderId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="buyerId" Type="int" Nullable="false" />
-          <Property Name="orderDate" Type="datetime" Nullable="false" />
-          <Property Name="total" Type="money" Nullable="false" />
-          <Property Name="statusOfOrder" Type="bit" />
-          <Property Name="DeliveryAddress" Type="nvarchar" MaxLength="100" />
-          <Property Name="DeleveryDate" Type="datetime2" Precision="7" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OrderDetail">
+        <EntityType Name="OrderDetails">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -48,9 +36,21 @@
           <Property Name="orderId" Type="int" Nullable="false" />
           <Property Name="productId" Type="int" Nullable="false" />
           <Property Name="quantity" Type="int" Nullable="false" />
-          <Property Name="soldPrice" Type="money" Nullable="false" />
+          <Property Name="soldPrice" Type="decimal" Precision="19" Scale="4" Nullable="false" />
         </EntityType>
-        <EntityType Name="Product">
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="buyerId" Type="int" Nullable="false" />
+          <Property Name="orderDate" Type="datetime" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="statusOfOrder" Type="bit" />
+          <Property Name="DeliveryAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="DeleveryDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -58,14 +58,12 @@
           <Property Name="sellerId" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="image" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="price" Type="money" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="discount" Type="int" />
           <Property Name="description" Type="varchar" MaxLength="100" />
           <Property Name="status" Type="int" Nullable="false" />
-          <Property Name="createDate" Type="date" Nullable="false" />
+          <Property Name="createDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SqlDatabaseSyb.dbo.sysdiagrams' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="name" />
@@ -78,178 +76,114 @@ warning 6002: The table/view 'SqlDatabaseSyb.dbo.sysdiagrams' does not have a pr
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SqlDatabaseSyb.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="create_date" Type="datetime" Nullable="false" />
-          <Property Name="modify_date" Type="datetime" Nullable="false" />
-        </EntityType>
         <Association Name="FK_tblComment_tblOrder">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Order">
+            <Principal Role="Orders">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Comment">
+            <Dependent Role="Comments">
               <PropertyRef Name="orderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblOrder_tblAccount">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
+            <Principal Role="Accounts">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Order">
+            <Dependent Role="Orders">
               <PropertyRef Name="buyerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblOrderDetail_tblOrder">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Order">
+            <Principal Role="Orders">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="OrderDetail">
+            <Dependent Role="OrderDetails">
               <PropertyRef Name="orderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblOrderDetail_tblProduct">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product">
+            <Principal Role="Products">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="OrderDetail">
+            <Dependent Role="OrderDetails">
               <PropertyRef Name="productId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblProduct_tblAccount">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
+            <Principal Role="Accounts">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Product">
+            <Dependent Role="Products">
               <PropertyRef Name="sellerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SqlDatabaseSybModelStoreContainer">
-          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [sysdiagrams].[name] AS [name], 
-    [sysdiagrams].[principal_id] AS [principal_id], 
-    [sysdiagrams].[diagram_id] AS [diagram_id], 
-    [sysdiagrams].[version] AS [version], 
-    [sysdiagrams].[definition] AS [definition]
-    FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
-            <DefiningQuery>SELECT 
-    [database_firewall_rules].[id] AS [id], 
-    [database_firewall_rules].[name] AS [name], 
-    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
-    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
-    [database_firewall_rules].[create_date] AS [create_date], 
-    [database_firewall_rules].[modify_date] AS [modify_date]
-    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
-          </EntitySet>
+        <EntityContainer Name="sqldatabaseModelStoreContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tblComment_tblOrder" Association="Self.FK_tblComment_tblOrder">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
           <AssociationSet Name="FK_tblOrder_tblAccount" Association="Self.FK_tblOrder_tblAccount">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="Order" EntitySet="Order" />
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_tblOrderDetail_tblOrder" Association="Self.FK_tblOrderDetail_tblOrder">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="OrderDetail" EntitySet="OrderDetail" />
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tblOrderDetail_tblProduct" Association="Self.FK_tblOrderDetail_tblProduct">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="OrderDetail" EntitySet="OrderDetail" />
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tblProduct_tblAccount" Association="Self.FK_tblProduct_tblAccount">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="Product" EntitySet="Product" />
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SqlDatabaseSybModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="SqlDatabaseSybEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Accounts" EntityType="SqlDatabaseSybModel.Account" />
-          <EntitySet Name="Comments" EntityType="SqlDatabaseSybModel.Comment" />
-          <EntitySet Name="Orders" EntityType="SqlDatabaseSybModel.Order" />
-          <EntitySet Name="OrderDetails" EntityType="SqlDatabaseSybModel.OrderDetail" />
-          <EntitySet Name="Products" EntityType="SqlDatabaseSybModel.Product" />
-          <EntitySet Name="sysdiagrams" EntityType="SqlDatabaseSybModel.sysdiagram" />
-          <EntitySet Name="database_firewall_rules" EntityType="SqlDatabaseSybModel.database_firewall_rules" />
-          <AssociationSet Name="FK_tblOrder_tblAccount" Association="SqlDatabaseSybModel.FK_tblOrder_tblAccount">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProduct_tblAccount" Association="SqlDatabaseSybModel.FK_tblProduct_tblAccount">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblComment_tblOrder" Association="SqlDatabaseSybModel.FK_tblComment_tblOrder">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblOrderDetail_tblOrder" Association="SqlDatabaseSybModel.FK_tblOrderDetail_tblOrder">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblOrderDetail_tblProduct" Association="SqlDatabaseSybModel.FK_tblOrderDetail_tblProduct">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="sqldatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="sex" Type="Boolean" Nullable="false" />
-          <Property Name="phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="role" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="SqlDatabaseSybModel.FK_tblOrder_tblAccount" FromRole="Account" ToRole="Order" />
-          <NavigationProperty Name="Products" Relationship="SqlDatabaseSybModel.FK_tblProduct_tblAccount" FromRole="Account" ToRole="Product" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_tblOrder_tblAccount" FromRole="Accounts" ToRole="Orders" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_tblProduct_tblAccount" FromRole="Accounts" ToRole="Products" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -259,22 +193,7 @@ warning 6002: The table/view 'SqlDatabaseSyb.sys.database_firewall_rules' does n
           <Property Name="rating" Type="Int32" Nullable="false" />
           <Property Name="contentText" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="orderId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="SqlDatabaseSybModel.FK_tblComment_tblOrder" FromRole="Comment" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="buyerId" Type="Int32" Nullable="false" />
-          <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="total" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="statusOfOrder" Type="Boolean" />
-          <Property Name="DeliveryAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DeleveryDate" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Account" Relationship="SqlDatabaseSybModel.FK_tblOrder_tblAccount" FromRole="Order" ToRole="Account" />
-          <NavigationProperty Name="Comments" Relationship="SqlDatabaseSybModel.FK_tblComment_tblOrder" FromRole="Order" ToRole="Comment" />
-          <NavigationProperty Name="OrderDetails" Relationship="SqlDatabaseSybModel.FK_tblOrderDetail_tblOrder" FromRole="Order" ToRole="OrderDetail" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_tblComment_tblOrder" FromRole="Comments" ToRole="Orders" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -284,9 +203,24 @@ warning 6002: The table/view 'SqlDatabaseSyb.sys.database_firewall_rules' does n
           <Property Name="orderId" Type="Int32" Nullable="false" />
           <Property Name="productId" Type="Int32" Nullable="false" />
           <Property Name="quantity" Type="Int32" Nullable="false" />
-          <Property Name="soldPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <NavigationProperty Name="Order" Relationship="SqlDatabaseSybModel.FK_tblOrderDetail_tblOrder" FromRole="OrderDetail" ToRole="Order" />
-          <NavigationProperty Name="Product" Relationship="SqlDatabaseSybModel.FK_tblOrderDetail_tblProduct" FromRole="OrderDetail" ToRole="Product" />
+          <Property Name="soldPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_tblOrderDetail_tblOrder" FromRole="OrderDetails" ToRole="Orders" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_tblOrderDetail_tblProduct" FromRole="OrderDetails" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="buyerId" Type="Int32" Nullable="false" />
+          <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="statusOfOrder" Type="Boolean" />
+          <Property Name="DeliveryAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DeleveryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_tblOrder_tblAccount" FromRole="Orders" ToRole="Accounts" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_tblComment_tblOrder" FromRole="Orders" ToRole="Comments" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_tblOrderDetail_tblOrder" FromRole="Orders" ToRole="OrderDetails" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -294,15 +228,15 @@ warning 6002: The table/view 'SqlDatabaseSyb.sys.database_firewall_rules' does n
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="sellerId" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="image" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="discount" Type="Int32" />
           <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="Int32" Nullable="false" />
-          <Property Name="createDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Account" Relationship="SqlDatabaseSybModel.FK_tblProduct_tblAccount" FromRole="Product" ToRole="Account" />
-          <NavigationProperty Name="OrderDetails" Relationship="SqlDatabaseSybModel.FK_tblOrderDetail_tblProduct" FromRole="Product" ToRole="OrderDetail" />
+          <Property Name="createDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_tblProduct_tblAccount" FromRole="Products" ToRole="Accounts" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_tblOrderDetail_tblProduct" FromRole="Products" ToRole="OrderDetails" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -310,178 +244,178 @@ warning 6002: The table/view 'SqlDatabaseSyb.sys.database_firewall_rules' does n
             <PropertyRef Name="principal_id" />
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <Association Name="FK_tblOrder_tblAccount">
-          <End Type="SqlDatabaseSybModel.Account" Role="Account" Multiplicity="1" />
-          <End Type="SqlDatabaseSybModel.Order" Role="Order" Multiplicity="*" />
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
+            <Principal Role="Accounts">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Order">
+            <Dependent Role="Orders">
               <PropertyRef Name="buyerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblProduct_tblAccount">
-          <End Type="SqlDatabaseSybModel.Account" Role="Account" Multiplicity="1" />
-          <End Type="SqlDatabaseSybModel.Product" Role="Product" Multiplicity="*" />
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
+            <Principal Role="Accounts">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Product">
+            <Dependent Role="Products">
               <PropertyRef Name="sellerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblComment_tblOrder">
-          <End Type="SqlDatabaseSybModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="SqlDatabaseSybModel.Comment" Role="Comment" Multiplicity="*" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Order">
+            <Principal Role="Orders">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Comment">
+            <Dependent Role="Comments">
               <PropertyRef Name="orderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblOrderDetail_tblOrder">
-          <End Type="SqlDatabaseSybModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="SqlDatabaseSybModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Order">
+            <Principal Role="Orders">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="OrderDetail">
+            <Dependent Role="OrderDetails">
               <PropertyRef Name="orderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblOrderDetail_tblProduct">
-          <End Type="SqlDatabaseSybModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="SqlDatabaseSybModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product">
+            <Principal Role="Products">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="OrderDetail">
+            <Dependent Role="OrderDetails">
               <PropertyRef Name="productId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <EntityContainer Name="SqlDatabaseSybEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_tblOrder_tblAccount" Association="Self.FK_tblOrder_tblAccount">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProduct_tblAccount" Association="Self.FK_tblProduct_tblAccount">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblComment_tblOrder" Association="Self.FK_tblComment_tblOrder">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOrderDetail_tblOrder" Association="Self.FK_tblOrderDetail_tblOrder">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOrderDetail_tblProduct" Association="Self.FK_tblOrderDetail_tblProduct">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SqlDatabaseSybModelStoreContainer" CdmEntityContainer="SqlDatabaseSybEntities">
+        <EntityContainerMapping StorageEntityContainer="sqldatabaseModelStoreContainer" CdmEntityContainer="SqlDatabaseSybEntities">
           <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="SqlDatabaseSybModel.Account">
-              <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="role" ColumnName="role" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="sex" ColumnName="sex" />
-                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="username" ColumnName="username" />
+            <EntityTypeMapping TypeName="sqldatabaseModel.Account">
+              <MappingFragment StoreEntitySet="Accounts">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="role" ColumnName="role" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="SqlDatabaseSybModel.Comment">
-              <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="orderId" ColumnName="orderId" />
-                <ScalarProperty Name="contentText" ColumnName="contentText" />
+            <EntityTypeMapping TypeName="sqldatabaseModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="rating" ColumnName="rating" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="SqlDatabaseSybModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="DeleveryDate" ColumnName="DeleveryDate" />
-                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
-                <ScalarProperty Name="statusOfOrder" ColumnName="statusOfOrder" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="orderDate" ColumnName="orderDate" />
-                <ScalarProperty Name="buyerId" ColumnName="buyerId" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="contentText" ColumnName="contentText" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="SqlDatabaseSybModel.OrderDetail">
-              <MappingFragment StoreEntitySet="OrderDetail">
-                <ScalarProperty Name="soldPrice" ColumnName="soldPrice" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="productId" ColumnName="productId" />
-                <ScalarProperty Name="orderId" ColumnName="orderId" />
+            <EntityTypeMapping TypeName="sqldatabaseModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="soldPrice" ColumnName="soldPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="sqldatabaseModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="buyerId" ColumnName="buyerId" />
+                <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="statusOfOrder" ColumnName="statusOfOrder" />
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+                <ScalarProperty Name="DeleveryDate" ColumnName="DeleveryDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="SqlDatabaseSybModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="createDate" ColumnName="createDate" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="discount" ColumnName="discount" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="image" ColumnName="image" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="sellerId" ColumnName="sellerId" />
+            <EntityTypeMapping TypeName="sqldatabaseModel.Product">
+              <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sellerId" ColumnName="sellerId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SqlDatabaseSybModel.sysdiagram">
+            <EntityTypeMapping TypeName="sqldatabaseModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="database_firewall_rules">
-            <EntityTypeMapping TypeName="SqlDatabaseSybModel.database_firewall_rules">
-              <MappingFragment StoreEntitySet="database_firewall_rules">
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
-                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

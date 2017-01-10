@@ -250,9 +250,6 @@
     <Compile Include="Models\DAO\OrderDao.cs" />
     <Compile Include="Models\DAO\OrderDetailDao.cs" />
     <Compile Include="Models\DAO\ProductDao.cs" />
-    <Compile Include="Models\database_firewall_rules.cs">
-      <DependentUpon>SqlDatabaseSyb.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs">
@@ -447,6 +444,9 @@
     <Content Include="Content\Customer\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\Customer\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\Customer\fonts\digital-7-webfont.eot" />
+    <Content Include="Content\DatePicker\less\datepicker.less" />
+    <Content Include="Content\Admin\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Common\FileUploader.ashx" />
     <EntityDeploy Include="Models\SqlDatabaseSyb.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SqlDatabaseSyb.Designer.cs</LastGenOutput>
@@ -454,9 +454,6 @@
     <Content Include="Models\SqlDatabaseSyb.edmx.diagram">
       <DependentUpon>SqlDatabaseSyb.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\DatePicker\less\datepicker.less" />
-    <Content Include="Content\Admin\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Common\FileUploader.ashx" />
     <None Include="Properties\PublishProfiles\demois.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\local1.pubxml" />

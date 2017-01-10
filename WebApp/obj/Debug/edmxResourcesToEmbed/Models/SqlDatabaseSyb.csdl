@@ -1,49 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="SqlDatabaseSybModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityContainer Name="SqlDatabaseSybEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Accounts" EntityType="SqlDatabaseSybModel.Account" />
-    <EntitySet Name="Comments" EntityType="SqlDatabaseSybModel.Comment" />
-    <EntitySet Name="Orders" EntityType="SqlDatabaseSybModel.Order" />
-    <EntitySet Name="OrderDetails" EntityType="SqlDatabaseSybModel.OrderDetail" />
-    <EntitySet Name="Products" EntityType="SqlDatabaseSybModel.Product" />
-    <EntitySet Name="sysdiagrams" EntityType="SqlDatabaseSybModel.sysdiagram" />
-    <EntitySet Name="database_firewall_rules" EntityType="SqlDatabaseSybModel.database_firewall_rules" />
-    <AssociationSet Name="FK_tblOrder_tblAccount" Association="SqlDatabaseSybModel.FK_tblOrder_tblAccount">
-      <End Role="Account" EntitySet="Accounts" />
-      <End Role="Order" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tblProduct_tblAccount" Association="SqlDatabaseSybModel.FK_tblProduct_tblAccount">
-      <End Role="Account" EntitySet="Accounts" />
-      <End Role="Product" EntitySet="Products" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tblComment_tblOrder" Association="SqlDatabaseSybModel.FK_tblComment_tblOrder">
-      <End Role="Order" EntitySet="Orders" />
-      <End Role="Comment" EntitySet="Comments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tblOrderDetail_tblOrder" Association="SqlDatabaseSybModel.FK_tblOrderDetail_tblOrder">
-      <End Role="Order" EntitySet="Orders" />
-      <End Role="OrderDetail" EntitySet="OrderDetails" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tblOrderDetail_tblProduct" Association="SqlDatabaseSybModel.FK_tblOrderDetail_tblProduct">
-      <End Role="Product" EntitySet="Products" />
-      <End Role="OrderDetail" EntitySet="OrderDetails" />
-    </AssociationSet>
-  </EntityContainer>
+<Schema Namespace="sqldatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Account">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="sex" Type="Boolean" Nullable="false" />
-    <Property Name="phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="role" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Orders" Relationship="SqlDatabaseSybModel.FK_tblOrder_tblAccount" FromRole="Account" ToRole="Order" />
-    <NavigationProperty Name="Products" Relationship="SqlDatabaseSybModel.FK_tblProduct_tblAccount" FromRole="Account" ToRole="Product" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_tblOrder_tblAccount" FromRole="Accounts" ToRole="Orders" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_tblProduct_tblAccount" FromRole="Accounts" ToRole="Products" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -53,22 +24,7 @@
     <Property Name="rating" Type="Int32" Nullable="false" />
     <Property Name="contentText" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="orderId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Order" Relationship="SqlDatabaseSybModel.FK_tblComment_tblOrder" FromRole="Comment" ToRole="Order" />
-  </EntityType>
-  <EntityType Name="Order">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="buyerId" Type="Int32" Nullable="false" />
-    <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="total" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-    <Property Name="statusOfOrder" Type="Boolean" />
-    <Property Name="DeliveryAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="DeleveryDate" Type="DateTime" Nullable="false" Precision="7" />
-    <NavigationProperty Name="Account" Relationship="SqlDatabaseSybModel.FK_tblOrder_tblAccount" FromRole="Order" ToRole="Account" />
-    <NavigationProperty Name="Comments" Relationship="SqlDatabaseSybModel.FK_tblComment_tblOrder" FromRole="Order" ToRole="Comment" />
-    <NavigationProperty Name="OrderDetails" Relationship="SqlDatabaseSybModel.FK_tblOrderDetail_tblOrder" FromRole="Order" ToRole="OrderDetail" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_tblComment_tblOrder" FromRole="Comments" ToRole="Orders" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -78,9 +34,24 @@
     <Property Name="orderId" Type="Int32" Nullable="false" />
     <Property Name="productId" Type="Int32" Nullable="false" />
     <Property Name="quantity" Type="Int32" Nullable="false" />
-    <Property Name="soldPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-    <NavigationProperty Name="Order" Relationship="SqlDatabaseSybModel.FK_tblOrderDetail_tblOrder" FromRole="OrderDetail" ToRole="Order" />
-    <NavigationProperty Name="Product" Relationship="SqlDatabaseSybModel.FK_tblOrderDetail_tblProduct" FromRole="OrderDetail" ToRole="Product" />
+    <Property Name="soldPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_tblOrderDetail_tblOrder" FromRole="OrderDetails" ToRole="Orders" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_tblOrderDetail_tblProduct" FromRole="OrderDetails" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="buyerId" Type="Int32" Nullable="false" />
+    <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="statusOfOrder" Type="Boolean" />
+    <Property Name="DeliveryAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DeleveryDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_tblOrder_tblAccount" FromRole="Orders" ToRole="Accounts" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_tblComment_tblOrder" FromRole="Orders" ToRole="Comments" />
+    <NavigationProperty Name="OrderDetails" Relationship="Self.FK_tblOrderDetail_tblOrder" FromRole="Orders" ToRole="OrderDetails" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -88,15 +59,15 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="sellerId" Type="Int32" Nullable="false" />
-    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="image" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <Property Name="discount" Type="Int32" />
     <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="status" Type="Int32" Nullable="false" />
-    <Property Name="createDate" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="Account" Relationship="SqlDatabaseSybModel.FK_tblProduct_tblAccount" FromRole="Product" ToRole="Account" />
-    <NavigationProperty Name="OrderDetails" Relationship="SqlDatabaseSybModel.FK_tblOrderDetail_tblProduct" FromRole="Product" ToRole="OrderDetail" />
+    <Property Name="createDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_tblProduct_tblAccount" FromRole="Products" ToRole="Accounts" />
+    <NavigationProperty Name="OrderDetails" Relationship="Self.FK_tblOrderDetail_tblProduct" FromRole="Products" ToRole="OrderDetails" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -104,86 +75,98 @@
       <PropertyRef Name="principal_id" />
       <PropertyRef Name="diagram_id" />
     </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="principal_id" Type="Int32" Nullable="false" />
     <Property Name="diagram_id" Type="Int32" Nullable="false" />
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
-  <EntityType Name="database_firewall_rules">
-    <Key>
-      <PropertyRef Name="id" />
-      <PropertyRef Name="name" />
-      <PropertyRef Name="start_ip_address" />
-      <PropertyRef Name="end_ip_address" />
-      <PropertyRef Name="create_date" />
-      <PropertyRef Name="modify_date" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
-  </EntityType>
   <Association Name="FK_tblOrder_tblAccount">
-    <End Type="SqlDatabaseSybModel.Account" Role="Account" Multiplicity="1" />
-    <End Type="SqlDatabaseSybModel.Order" Role="Order" Multiplicity="*" />
+    <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Account">
+      <Principal Role="Accounts">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="Order">
+      <Dependent Role="Orders">
         <PropertyRef Name="buyerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_tblProduct_tblAccount">
-    <End Type="SqlDatabaseSybModel.Account" Role="Account" Multiplicity="1" />
-    <End Type="SqlDatabaseSybModel.Product" Role="Product" Multiplicity="*" />
+    <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Account">
+      <Principal Role="Accounts">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="Product">
+      <Dependent Role="Products">
         <PropertyRef Name="sellerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_tblComment_tblOrder">
-    <End Type="SqlDatabaseSybModel.Order" Role="Order" Multiplicity="1" />
-    <End Type="SqlDatabaseSybModel.Comment" Role="Comment" Multiplicity="*" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Order">
+      <Principal Role="Orders">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="Comment">
+      <Dependent Role="Comments">
         <PropertyRef Name="orderId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_tblOrderDetail_tblOrder">
-    <End Type="SqlDatabaseSybModel.Order" Role="Order" Multiplicity="1" />
-    <End Type="SqlDatabaseSybModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Order">
+      <Principal Role="Orders">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="OrderDetail">
+      <Dependent Role="OrderDetails">
         <PropertyRef Name="orderId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_tblOrderDetail_tblProduct">
-    <End Type="SqlDatabaseSybModel.Product" Role="Product" Multiplicity="1" />
-    <End Type="SqlDatabaseSybModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Product">
+      <Principal Role="Products">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="OrderDetail">
+      <Dependent Role="OrderDetails">
         <PropertyRef Name="productId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityContainer Name="SqlDatabaseSybEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_tblOrder_tblAccount" Association="Self.FK_tblOrder_tblAccount">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProduct_tblAccount" Association="Self.FK_tblProduct_tblAccount">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblComment_tblOrder" Association="Self.FK_tblComment_tblOrder">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblOrderDetail_tblOrder" Association="Self.FK_tblOrderDetail_tblOrder">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblOrderDetail_tblProduct" Association="Self.FK_tblOrderDetail_tblProduct">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+  </EntityContainer>
 </Schema>

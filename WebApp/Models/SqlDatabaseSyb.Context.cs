@@ -27,10 +27,9 @@ namespace WebApp.Models
     
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     }
 }
